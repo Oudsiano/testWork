@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  TestWork
-//
-//  Created by Natalie Mikheeva on 02.08.2023.
-//
-
 import UIKit
 import CoreData
 
