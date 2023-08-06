@@ -2,8 +2,6 @@ import UIKit
 
 class ViewController: UIViewController, UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     
-    
-    
     enum Constants{
         enum CollectionView {
             static let title = "Список новостоей"
@@ -41,7 +39,7 @@ class ViewController: UIViewController, UICollectionViewDataSource,UICollectionV
         
         collectionVIew.dataSource = self
         collectionVIew.delegate = self
-        collectionVIew.register(CustomCell.self, forCellWithReuseIdentifier: "cell")//регистрируем ячейку
+        collectionVIew.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: CustomCollectionViewCell.identifier)//регистрируем ячейку
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) ->  Int { //Получаем точное количество элементов в разделе или сколько ячеек мы хотим отобразить в коллекции
@@ -50,7 +48,7 @@ class ViewController: UIViewController, UICollectionViewDataSource,UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCell //создаем экземпляр ячейки с использованием многоразовой ячейки с идентификатором из списка представления коллекции
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.identifier, for: indexPath) as! CustomCollectionViewCell //создаем экземпляр ячейки с использованием многоразовой ячейки с идентификатором из списка представления коллекции
         //используем в withReuseIdentifier зарегистрированный идентификатор
         //в withReuseIdentifier указываем путь
         cell.newsImageView.image = UIImage(named: news[indexPath.row])
@@ -68,26 +66,5 @@ class ViewController: UIViewController, UICollectionViewDataSource,UICollectionV
 
 
 
-class CustomCell: UICollectionViewCell {//создаем ячейку наследуясь от ячейки пользовательского интефейса
-    let newsImageView = UIImageView() //инициализируем Картинку новости
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        addSubview(newsImageView) //добавляем в ячейку картинку новости
-        newsImageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            newsImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            newsImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            newsImageView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-            newsImageView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
-        ])
-        
-        newsImageView.layer.cornerRadius = 20 //устанавливаем скругление картинки
-        newsImageView.layer.masksToBounds = true
-        
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
+
 
