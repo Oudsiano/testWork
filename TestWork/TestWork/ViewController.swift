@@ -1,6 +1,6 @@
 import UIKit
 
-class ViewController: UIViewController, UICollectionViewDataSource,UICollectionViewDelegate {
+class ViewController: UIViewController, UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     
     
     
@@ -33,12 +33,12 @@ class ViewController: UIViewController, UICollectionViewDataSource,UICollectionV
         collectionVIew.translatesAutoresizingMaskIntoConstraints = false //снимаем заводские констрейнты
         collectionVIew.backgroundColor = Constants.CollectionView.backgroundColor
         //ставим кастомные
-        NSLayoutConstraint.activate([
-            collectionVIew.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.CollectionView.topOffset),
-            collectionVIew.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            collectionVIew.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            collectionVIew.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
+        collectionVIew.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.CollectionView.topOffset).isActive = true
+            collectionVIew.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+            collectionVIew.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
+            collectionVIew.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10).isActive = true
+
+        
         collectionVIew.dataSource = self
         collectionVIew.delegate = self
         collectionVIew.register(CustomCell.self, forCellWithReuseIdentifier: "cell")//регистрируем ячейку
@@ -56,14 +56,23 @@ class ViewController: UIViewController, UICollectionViewDataSource,UICollectionV
         cell.newsImageView.image = UIImage(named: news[indexPath.row])
         return cell
     }
+    func collectionView(_ collectionView: UICollectionView,layout collectionViewLayout: UICollectionViewLayout,sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width/2 - 40, height: 200)
+    }//устанавливаем размер ячейки
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("news \(indexPath.row + 1) is tapped")
+    }
 }
+
+
+
 
 class CustomCell: UICollectionViewCell {//создаем ячейку наследуясь от ячейки пользовательского интефейса
     let newsImageView = UIImageView() //инициализируем Картинку новости
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(newsImageView) //добавляем в ячейку картинку новости
-        
         newsImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             newsImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
@@ -71,6 +80,10 @@ class CustomCell: UICollectionViewCell {//создаем ячейку насле
             newsImageView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             newsImageView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
+        
+        newsImageView.layer.cornerRadius = 20 //устанавливаем скругление картинки
+        newsImageView.layer.masksToBounds = true
+        
     }
     
     required init?(coder: NSCoder) {
