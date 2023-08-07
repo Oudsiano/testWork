@@ -16,12 +16,15 @@ class ViewController: UIViewController, UICollectionViewDataSource,UICollectionV
             static let bottomOffset = 30 as CGFloat
         }
     }
-    let news = ["news1","news2","news3","news4","news5"]
+    let sessionConfiguration = URLSessionConfiguration.default
+    let session = URLSession.shared//подключение к сети
+    let decoder = JSONDecoder() //переводчик на swift с Json
     
     var collectionVIew: UICollectionView! //для создания коллекции сначала нужен ее экземпляр
     
     override func viewDidLoad() {
         setupCollectionView()
+        //obtainPosts()
     }
     
     func setupCollectionView() {
@@ -32,10 +35,10 @@ class ViewController: UIViewController, UICollectionViewDataSource,UICollectionV
         collectionVIew.backgroundColor = Constants.CollectionView.backgroundColor
         //ставим кастомные
         collectionVIew.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.CollectionView.topOffset).isActive = true
-            collectionVIew.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-            collectionVIew.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
-            collectionVIew.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10).isActive = true
-
+        collectionVIew.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        collectionVIew.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
+        collectionVIew.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10).isActive = true
+        
         
         collectionVIew.dataSource = self
         collectionVIew.delegate = self
@@ -43,7 +46,7 @@ class ViewController: UIViewController, UICollectionViewDataSource,UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) ->  Int { //Получаем точное количество элементов в разделе или сколько ячеек мы хотим отобразить в коллекции
-        return news.count
+        return 20
         
     }
     
@@ -51,7 +54,6 @@ class ViewController: UIViewController, UICollectionViewDataSource,UICollectionV
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.identifier, for: indexPath) as! CustomCollectionViewCell //создаем экземпляр ячейки с использованием многоразовой ячейки с идентификатором из списка представления коллекции
         //используем в withReuseIdentifier зарегистрированный идентификатор
         //в withReuseIdentifier указываем путь
-        cell.newsImageView.image = UIImage(named: news[indexPath.row])
         return cell
     }
     func collectionView(_ collectionView: UICollectionView,layout collectionViewLayout: UICollectionViewLayout,sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -61,10 +63,23 @@ class ViewController: UIViewController, UICollectionViewDataSource,UICollectionV
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("news \(indexPath.row + 1) is tapped")
     }
+    
+     //собираем данные
+//    func obtainPosts() {
+//        guard let url = URL(string: "https://jsonplaceholder.typicode.com/posts") else {
+//            return
+//        }
+//
+//        session.dataTask(with: url) { [weak self]data, response, error in
+//
+//            guard let strongSelf = self else {return}
+//            if error == nil,let parsData = data {
+//
+//                let news = try? strongSelf.decoder.decode([News].self, from: parsData)
+//                print("News : \(news)")
+//            } else {
+//                print("ERROR: \(error?.localizedDescription)")
+//            }
+//        }.resume()
+//    }
 }
-
-
-
-
-
-
