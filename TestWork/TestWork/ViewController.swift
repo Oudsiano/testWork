@@ -10,10 +10,13 @@ class ViewController: UIViewController, UICollectionViewDataSource,UICollectionV
             static let centerYCollectionViewCenterScreen = -40 as CGFloat
             static let widthCollectionView = 200 as CGFloat
             static let heightCollectionView = 60 as CGFloat
-            static let rightOffset = 30 as CGFloat
-            static let leftOffset = 30 as CGFloat
+            static let rightOffset = -10 as CGFloat
+            static let leftOffset = 10 as CGFloat
             static let topOffset = 30 as CGFloat
             static let bottomOffset = 30 as CGFloat
+            static let horizontalDistanceCell = 30 as CGFloat
+            static let hightCell = 200 as CGFloat
+            static let cellCount = 20
         }
     }
     let sessionConfiguration = URLSessionConfiguration.default
@@ -35,9 +38,9 @@ class ViewController: UIViewController, UICollectionViewDataSource,UICollectionV
         collectionVIew.backgroundColor = Constants.CollectionView.backgroundColor
         //ставим кастомные
         collectionVIew.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.CollectionView.topOffset).isActive = true
-        collectionVIew.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-        collectionVIew.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
-        collectionVIew.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10).isActive = true
+        collectionVIew.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constants.CollectionView.leftOffset).isActive = true
+        collectionVIew.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: Constants.CollectionView.rightOffset).isActive = true
+        collectionVIew.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         
         
         collectionVIew.dataSource = self
@@ -46,7 +49,7 @@ class ViewController: UIViewController, UICollectionViewDataSource,UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) ->  Int { //Получаем точное количество элементов в разделе или сколько ячеек мы хотим отобразить в коллекции
-        return 20
+        return Constants.CollectionView.cellCount
         
     }
     
@@ -57,7 +60,7 @@ class ViewController: UIViewController, UICollectionViewDataSource,UICollectionV
         return cell
     }
     func collectionView(_ collectionView: UICollectionView,layout collectionViewLayout: UICollectionViewLayout,sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width/2 - 40, height: 200)
+        return CGSize(width: view.frame.width/2 - Constants.CollectionView.horizontalDistanceCell, height: Constants.CollectionView.hightCell)
     }//устанавливаем размер ячейки
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

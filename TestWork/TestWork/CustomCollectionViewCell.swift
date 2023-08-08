@@ -18,6 +18,10 @@ class CustomCollectionViewCell: UICollectionViewCell {//создаем ячей�
                 static let viewsCountText = "14"
                 static let viewsCountBackgroundColor = UIColor.blue
                 static let textViewsCountColor = UIColor.black
+                static let widthViewsCount = 35 as CGFloat
+                static let heightViewsCount = 50 as CGFloat
+                static let cornerRadiusViewsCount = 20 as CGFloat
+                static let rightOffset = 35 as CGFloat
             }
         }
     }
@@ -90,11 +94,11 @@ class CustomCollectionViewCell: UICollectionViewCell {//создаем ячей�
         
     }
     private func setupCellViewsCount() {
-        viewsCount.frame = CGRect(x: contentView.frame.size.width - 35,
+        viewsCount.frame = CGRect(x: contentView.frame.size.width - Constants.Cell.ViewsCount.rightOffset,
                                   y: 0,
-                                  width: 35,
-                                  height: 50)
-        viewsCount.layer.cornerRadius = 20
+                                  width: Constants.Cell.ViewsCount.widthViewsCount,
+                                  height: Constants.Cell.ViewsCount.heightViewsCount)
+        viewsCount.layer.cornerRadius = Constants.Cell.ViewsCount.cornerRadiusViewsCount
         viewsCount.layer.masksToBounds = true
     }
     override func layoutSubviews() {
