@@ -20,6 +20,14 @@ final class SecondViewController: RootViewController {
     }
     
     // Properties
+    private let newsImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = (UIImage(systemName: "house")) //устанавливаем изображение
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+    
     private lazy var labelForMenu: UILabel = {
         let view = UILabel()
         view.backgroundColor = Constants.TextLabel.backgroundColor
@@ -28,13 +36,6 @@ final class SecondViewController: RootViewController {
         return view
     }()
     
-    private let newsImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = (UIImage(systemName: "house")) //устанавливаем изображение
-        imageView.contentMode = .scaleAspectFit
-        imageView.clipsToBounds = true
-        return imageView
-    }()
     
     private lazy var ffgr: String = " "
     
@@ -59,23 +60,23 @@ final class SecondViewController: RootViewController {
     
     private func setupUI() {
         setupLabel()
-//        setupImage()
+        setupImageNews()
     }
     
-//    private func setupImage() {
-//        view.addSubview(newsImage)
-//        newsImage.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            newsImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-//            newsImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-//            newsImage.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-//            newsImage.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
-//        ])
-//
-//        newsImage.layer.cornerRadius = Constants.Image.cornerRadius //устанавливаем скругление картинки
-//        newsImage.layer.masksToBounds = true
-//    }
-    
+    private func setupImageNews() {
+        view.addSubview(newsImage)
+
+        newsImage.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            newsImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            newsImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            newsImage.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            newsImage.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+        
+        newsImage.layer.cornerRadius = Constants.Image.cornerRadius //устанавливаем скругление картинки
+        newsImage.layer.masksToBounds = true
+    }
     private func setupLabel() {
         view.addSubview(labelForMenu)
         labelForMenu.translatesAutoresizingMaskIntoConstraints = false
