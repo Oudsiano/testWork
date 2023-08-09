@@ -1,6 +1,6 @@
 import UIKit
 
-class ViewController: UIViewController, UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
+class RootViewController: UIViewController, UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     
     enum Constants{
         enum CollectionView {
@@ -65,8 +65,16 @@ class ViewController: UIViewController, UICollectionViewDataSource,UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("news \(indexPath.row + 1) is tapped")
+        tapCell()
+        
     }
-    
+    private func tapCell() {
+        let VC = SecondViewController(textForPass: "Pochem")
+        navigationController?.pushViewController(VC, animated: true)
+        VC.modalPresentationStyle = .overFullScreen
+        VC.modalTransitionStyle = .coverVertical
+        present(VC, animated: true)
+    }
      //собираем данные
 //    func obtainPosts() {
 //        guard let url = URL(string: "https://jsonplaceholder.typicode.com/posts") else {
