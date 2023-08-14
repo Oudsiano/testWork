@@ -7,13 +7,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
-            guard let windowScene = (scene as? UIWindowScene) else { return }
-            window = UIWindow(frame: windowScene.coordinateSpace.bounds)
-            window?.windowScene = windowScene
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        let window = UIWindow(windowScene: windowScene)
         
-            window?.rootViewController = RootViewController()
-            window?.makeKeyAndVisible()
-        }
+        let rootViewController = RootViewController()
+        let navigation = UINavigationController(rootViewController: rootViewController)
+        window.rootViewController = navigation
+        self.window = window
+        window.makeKeyAndVisible()
+    }
+    }
         func sceneDidDisconnect(_ scene: UIScene) {
             
         }
@@ -36,6 +39,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         
-    }
     
 

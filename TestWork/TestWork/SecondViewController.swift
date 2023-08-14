@@ -56,6 +56,7 @@ final class SecondViewController: RootViewController {
         view.backgroundColor = .white
         setupUI()
         print(ffgr)
+        title = "back"
     }
     // MARK: - Private
     
@@ -63,6 +64,7 @@ final class SecondViewController: RootViewController {
         setupLabel()
         setupImageNews()
     }
+    
     
     private func setupImageNews() {
         view.addSubview(newsImage)
@@ -88,6 +90,7 @@ final class SecondViewController: RootViewController {
             labelForMenu.topAnchor.constraint(equalTo: view.topAnchor, constant: Constants.TextLabel.offsetToTopSafeArea),
             labelForMenu.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: Constants.TextLabel.offsetTopBotSafeAre)
         ])
+    }
     }
     
     //enum Constants {
@@ -214,4 +217,4 @@ final class SecondViewController: RootViewController {
     //    present(VC, animated: true)
     //}
     //}
-}
+

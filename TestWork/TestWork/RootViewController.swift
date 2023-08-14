@@ -73,7 +73,6 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
         navigationController?.pushViewController(VC, animated: true)
         VC.modalPresentationStyle = .overFullScreen
         VC.modalTransitionStyle = .coverVertical
-        present(VC, animated: true)
     }
      //собираем данные
 //    func obtainPosts() {
