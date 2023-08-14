@@ -9,13 +9,14 @@ final class SecondViewController: RootViewController {
             static let width = 150
             static let backgroundColor = UIColor.green
             static let textColor = UIColor.black
-            static let offsetToLeftSafeArea = 50 as CGFloat
-            static let offsetToRightSafeArea = -50 as CGFloat
-            static let offsetToTopSafeArea = 50 as CGFloat
-            static let offsetTopBotSafeAre = -50 as CGFloat
+            static let offsetToLeftSafeArea = 0 as CGFloat
+            static let offsetToRightSafeArea = 0 as CGFloat
+            static let offsetToTopSafeArea = 0 as CGFloat
+            static let offsetTopBotSafeAre = 0 as CGFloat
         }
         enum Image {
             static let cornerRadius = 20 as CGFloat
+            static let imageWidth = 300 as CGFloat
         }
     }
     
@@ -68,10 +69,11 @@ final class SecondViewController: RootViewController {
 
         newsImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            newsImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            newsImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            newsImage.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            newsImage.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            newsImage.topAnchor.constraint(equalTo: view.topAnchor, constant: Constants.TextLabel.offsetToTopSafeArea),
+            newsImage.bottomAnchor.constraint(equalTo: view.centerYAnchor),
+            newsImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            newsImage.widthAnchor.constraint(equalToConstant: Constants.Image.imageWidth)
+//            newsImage.centerYAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         newsImage.layer.cornerRadius = Constants.Image.cornerRadius //устанавливаем скругление картинки
@@ -81,10 +83,10 @@ final class SecondViewController: RootViewController {
         view.addSubview(labelForMenu)
         labelForMenu.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            labelForMenu.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: Constants.TextLabel.offsetToLeftSafeArea),
-            labelForMenu.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: Constants.TextLabel.offsetToRightSafeArea),
-            labelForMenu.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.TextLabel.offsetToTopSafeArea),
-            labelForMenu.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: Constants.TextLabel.offsetTopBotSafeAre)
+            labelForMenu.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constants.TextLabel.offsetToLeftSafeArea),
+            labelForMenu.rightAnchor.constraint(equalTo: view.rightAnchor, constant: Constants.TextLabel.offsetToRightSafeArea),
+            labelForMenu.topAnchor.constraint(equalTo: view.topAnchor, constant: Constants.TextLabel.offsetToTopSafeArea),
+            labelForMenu.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: Constants.TextLabel.offsetTopBotSafeAre)
         ])
     }
     
