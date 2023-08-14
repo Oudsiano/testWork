@@ -27,7 +27,7 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     
     override func viewDidLoad() {
         setupCollectionView()
-        //obtainPosts()
+        obtainPosts()
     }
     
     func setupCollectionView() {
@@ -73,5 +73,33 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
         navigationController?.pushViewController(VC, animated: true)
         VC.modalPresentationStyle = .overFullScreen
         VC.modalTransitionStyle = .coverVertical
+    }
+    
+    func obtainPosts() {
+let urlString = "https://newsapi.org/v2/everything?q=bitcoin&from=2019-12-30&sortBy=publishedAt&apiKey=8c4d5faa662f4dce849d17d89e86ca14"
+        let url = URL(string: urlString)
+        
+        guard url != nil else {
+            return
+        }
+        let session = URLSession.shared
+        
+        let dataTask = session.dataTask(with: url!) { (data, response, error) in
+            
+            //check for error 
+            if error == nil && data != nil {
+                let decoder = JSONDecoder()
+                do {
+                    let newsFeed = try decoder.decode(NewsFeed.self, from: data!)
+                    print(newsFeed)
+                }
+                catch {
+                    print("Error in JSON parse")
+                }
+            }
+        }
+        
+        dataTask.resume()
+        
     }
 }
