@@ -108,12 +108,4 @@ class CustomCollectionViewCell: UICollectionViewCell {//создаем ячей�
     }
 }
 
-//@objc private func didTapMenuButton() {
-//    let vc = SecondViewController()
-//    vc.view.backgroundColor = Constants.View.backgroundColor
-//    navigationController?.pushViewController(vc, animated: true)
-//    let loger = Logger()
-//    loger.log(event: LogInfo(line: #line, file: #file, function: #function))
-//    }
-//}
 

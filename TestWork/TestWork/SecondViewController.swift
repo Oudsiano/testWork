@@ -1,7 +1,7 @@
 import UIKit
 
 final class SecondViewController: RootViewController {
-    let textForPass: String
+    let textForNews: String
     
     enum Constants {
         enum TextLabel {
@@ -18,6 +18,25 @@ final class SecondViewController: RootViewController {
             static let cornerRadius = 20 as CGFloat
             static let imageWidth = 300 as CGFloat
         }
+        enum Heading {
+            static let text = "Heading"
+            static let backgroundColor = UIColor.white
+            static let offsetToTopSafeArea = 100 as CGFloat
+            static let fontSize = 25
+        }
+        enum DatePublication {
+            static let text = "12.06.2023"
+            static let backgroundColor = UIColor.white
+            static let offsetToBotSafeArea = -50 as CGFloat
+            static let offsetToLeftSafeArea = 50 as CGFloat
+            static let cornerRadius = 5 as CGFloat
+        }
+        enum LinkToSourse {
+            static let text = "https:"
+            static let backgroundColor = UIColor.white
+            static let leftOffsetToDatePublication = 50 as CGFloat
+            static let cornerRadius = 5 as CGFloat
+        }
     }
     
     // Properties
@@ -28,12 +47,34 @@ final class SecondViewController: RootViewController {
         imageView.clipsToBounds = true
         return imageView
     }()
+    private lazy var datePublication: UILabel = {
+        let view = UILabel()
+        view.backgroundColor = Constants.DatePublication.backgroundColor
+        view.text = Constants.DatePublication.text
+        view.numberOfLines = 0
+        return view
+    }()
+    private lazy var linkToSource: UILabel = {
+        let view = UILabel()
+        view.backgroundColor = Constants.DatePublication.backgroundColor
+        view.text = Constants.LinkToSourse.text
+        view.numberOfLines = 0
+        return view
+    }()
     
     private lazy var labelForMenu: UILabel = {
         let view = UILabel()
         view.backgroundColor = Constants.TextLabel.backgroundColor
-        view.text = self.textForPass
+        view.text = self.textForNews
         view.numberOfLines = 0
+        return view
+    }()
+    private lazy var headingNews: UILabel = {
+        let view = UILabel()
+        view.backgroundColor = Constants.Heading.backgroundColor
+        view.text = Constants.Heading.text
+        view.numberOfLines = 0
+        view.font = UIFont(name: "Avenir Next", size: CGFloat(Constants.Heading.fontSize))
         return view
     }()
     
@@ -42,8 +83,8 @@ final class SecondViewController: RootViewController {
     
     // MARK: - Lifecycle
     
-    init(textForPass: String) {
-        self.textForPass = textForPass
+    init(textForNews: String) {
+        self.textForNews = textForNews
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -56,31 +97,64 @@ final class SecondViewController: RootViewController {
         view.backgroundColor = .white
         setupUI()
         print(ffgr)
-        title = "back"
     }
     // MARK: - Private
     
     private func setupUI() {
         setupLabel()
         setupImageNews()
+        setupHeading()
+        setupDatePublication()
+        setupLinkToSource()
     }
     
-    
+    private func setupHeading() {
+        view.addSubview(headingNews)
+        
+        headingNews.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            headingNews.topAnchor.constraint(equalTo: view.topAnchor, constant: Constants.Heading.offsetToTopSafeArea),
+            headingNews.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+    }
+    private func setupDatePublication() {
+        view.addSubview(datePublication)
+        
+        datePublication.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            datePublication.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: Constants.DatePublication.offsetToBotSafeArea),
+            datePublication.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constants.DatePublication.offsetToLeftSafeArea)
+        ])
+        datePublication.layer.cornerRadius = Constants.DatePublication.cornerRadius //устанавливаем скругление картинки
+        datePublication.layer.masksToBounds = true
+    }
+    private func setupLinkToSource() {
+        view.addSubview(linkToSource)
+        view.addSubview(datePublication)
+        linkToSource.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            linkToSource.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: Constants.DatePublication.offsetToBotSafeArea),
+            linkToSource.leftAnchor.constraint(equalTo: datePublication.rightAnchor, constant: Constants.DatePublication.offsetToLeftSafeArea)
+        ])
+    }
     private func setupImageNews() {
         view.addSubview(newsImage)
-
+        view.addSubview(headingNews)
         newsImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            newsImage.topAnchor.constraint(equalTo: view.topAnchor, constant: Constants.TextLabel.offsetToTopSafeArea),
+            newsImage.topAnchor.constraint(equalTo: headingNews.topAnchor),
             newsImage.bottomAnchor.constraint(equalTo: view.centerYAnchor),
             newsImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            newsImage.widthAnchor.constraint(equalToConstant: Constants.Image.imageWidth)
-//            newsImage.centerYAnchor.constraint(equalTo: view.centerXAnchor)
+            newsImage.widthAnchor.constraint(equalToConstant: Constants.Image.imageWidth),
+            //            newsImage.centerYAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         newsImage.layer.cornerRadius = Constants.Image.cornerRadius //устанавливаем скругление картинки
         newsImage.layer.masksToBounds = true
     }
+    
+    
+    
     private func setupLabel() {
         view.addSubview(labelForMenu)
         labelForMenu.translatesAutoresizingMaskIntoConstraints = false
@@ -91,130 +165,5 @@ final class SecondViewController: RootViewController {
             labelForMenu.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: Constants.TextLabel.offsetTopBotSafeAre)
         ])
     }
-    }
-    
-    //enum Constants {
-    //    enum ChikenButton {
-    //        static let offsetToLeftSafeArea = 20 as CGFloat
-    //        static let height = 50 as CGFloat
-    //        static let offsetToCenterView = -20 as CGFloat
-    //        static let backgroundColor = UIColor.green
-    //        static let text = "Chiken"
-    //        static let textColor = UIColor.black
-    //    }
-    //    enum FishButton {
-    //        static let offsetToRightSafeArea = -20 as CGFloat
-    //        static let height = 50 as CGFloat
-    //        static let offsetToCenterView = 20 as CGFloat
-    //        static let backgroundColor = UIColor.green
-    //        static let text = "Fish"
-    //        static let textColor = UIColor.black
-    //    }
-    //    enum ShrimpsButton {
-    //        static let offsetToLeftSafeArea = 20 as CGFloat
-    //        static let height = 50 as CGFloat
-    //        static let offsetToRightSafeArea = -20 as CGFloat
-    //        static let offsetToChikenButtonBotom = 16 as CGFloat
-    //        static let backgroundColor = UIColor.green
-    //        static let text = "Shrimps"
-    //        static let textColor = UIColor.black
-    //    }
-    //}
-    //
-    //// Properties
-    //private let chikenButton: UIButton = {
-    //    let view = UIButton()
-    //    view.setTitle(Constants.ChikenButton.text, for: .normal)
-    //    view.backgroundColor = Constants.ChikenButton.backgroundColor
-    //    view.setTitleColor(Constants.ChikenButton.textColor, for: .normal)
-    //    return view
-    //}()
-    //private let fishButton: UIButton = {
-    //    let view = UIButton()
-    //    view.setTitle(Constants.FishButton.text, for: .normal)
-    //    view.backgroundColor = Constants.FishButton.backgroundColor
-    //    view.setTitleColor(Constants.FishButton.textColor, for: .normal)
-    //    return view
-    //}()
-    //private let shrimpsButton: UIButton = {
-    //    let view = UIButton()
-    //    view.setTitle(Constants.ShrimpsButton.text, for: .normal)
-    //    view.backgroundColor = Constants.ShrimpsButton.backgroundColor
-    //    view.setTitleColor(Constants.ShrimpsButton.textColor, for: .normal)
-    //    return view
-    //}()
-    //
-    //// MARK: - Lifecycle
-    //
-    //override func viewDidLoad() {
-    //    super.viewDidLoad()
-    //    view.backgroundColor = .blue
-    //    title = "back"
-    //    setupUI()
-    //}
-    //
-    //// MARK: - Private
-    //
-    //private func setupUI() {
-    //    setupChikenButton()
-    //    setupFishButton()
-    //    setupShrimpsButton()
-    //}
-    //
-    //private func setupChikenButton() {
-    //    view.addSubview(chikenButton)
-    //    chikenButton.translatesAutoresizingMaskIntoConstraints = false
-    //    NSLayoutConstraint.activate([
-    //        chikenButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: Constants.ChikenButton.offsetToLeftSafeArea),
-    //        chikenButton.rightAnchor.constraint(equalTo: view.centerXAnchor, constant: Constants.ChikenButton.offsetToCenterView),
-    //        chikenButton.heightAnchor.constraint(equalToConstant: Constants.ChikenButton.height),
-    //        chikenButton.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
-    //    ])
-    //    chikenButton.addTarget(self, action: #selector(didTapChikenButton), for: .touchUpInside)
-    //}
-    //
-    //private func setupFishButton() {
-    //    view.addSubview(fishButton)
-    //    fishButton.translatesAutoresizingMaskIntoConstraints = false
-    //    NSLayoutConstraint.activate([
-    //        fishButton.leftAnchor.constraint(equalTo: view.centerXAnchor, constant: Constants.FishButton.offsetToCenterView),
-    //        fishButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: Constants.FishButton.offsetToRightSafeArea),
-    //        fishButton.heightAnchor.constraint(equalToConstant: Constants.FishButton.height),
-    //        fishButton.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
-    //    ])
-    //    fishButton.addTarget(self, action: #selector(didTapFishButton), for: .touchUpInside)
-    //}
-    //
-    //private func setupShrimpsButton() {
-    //    view.addSubview(shrimpsButton)
-    //    shrimpsButton.translatesAutoresizingMaskIntoConstraints = false
-    //    NSLayoutConstraint.activate([
-    //        shrimpsButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: Constants.ShrimpsButton.offsetToLeftSafeArea),
-    //        shrimpsButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: Constants.ShrimpsButton.offsetToRightSafeArea),
-    //        shrimpsButton.heightAnchor.constraint(equalToConstant: Constants.ShrimpsButton.height),
-    //        shrimpsButton.topAnchor.constraint(equalTo: chikenButton.bottomAnchor, constant: Constants.ShrimpsButton.offsetToChikenButtonBotom)
-    //    ])
-    //    shrimpsButton.addTarget(self, action: #selector(didTapShrimpsButton), for: .touchUpInside)
-    //}
-    //
-    //@objc private func didTapChikenButton() {
-    //    tapButton(s2de: "Chiken very pozitive ")
-    //
-    //}
-    //
-    //@objc private func didTapFishButton() {
-    //    tapButton(s2de: "Fish is a good")
-    //}
-    //
-    //@objc private func didTapShrimpsButton() {
-    //    tapButton(s2de: "krivetki it's a king")
-    //}
-    //
-    //private func tapButton(s2de: String) {
-    //    let VC = ThirdViewController(textForPass: " \(s2de)")
-    //    VC.modalPresentationStyle = .overFullScreen
-    //    VC.modalTransitionStyle = .coverVertical
-    //    present(VC, animated: true)
-    //}
-    //}
+}
 

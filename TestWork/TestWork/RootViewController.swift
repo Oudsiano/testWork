@@ -69,27 +69,9 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
         
     }
     private func tapCell() {
-        let VC = SecondViewController(textForPass: "Pochem")
+        let VC = SecondViewController(textForNews: "Pochem")
         navigationController?.pushViewController(VC, animated: true)
         VC.modalPresentationStyle = .overFullScreen
         VC.modalTransitionStyle = .coverVertical
     }
-     //собираем данные
-//    func obtainPosts() {
-//        guard let url = URL(string: "https://jsonplaceholder.typicode.com/posts") else {
-//            return
-//        }
-//
-//        session.dataTask(with: url) { [weak self]data, response, error in
-//
-//            guard let strongSelf = self else {return}
-//            if error == nil,let parsData = data {
-//
-//                let news = try? strongSelf.decoder.decode([News].self, from: parsData)
-//                print("News : \(news)")
-//            } else {
-//                print("ERROR: \(error?.localizedDescription)")
-//            }
-//        }.resume()
-//    }
 }

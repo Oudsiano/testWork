@@ -17,7 +17,6 @@
 		BD68C6462A7AA3250063D193 /* TestWorkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD68C6452A7AA3250063D193 /* TestWorkUITests.swift */; };
 		BD68C6482A7AA3250063D193 /* TestWorkUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD68C6472A7AA3250063D193 /* TestWorkUITestsLaunchTests.swift */; };
 		BD68C6552A7F76030063D193 /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD68C6542A7F76030063D193 /* CustomCollectionViewCell.swift */; };
-		BD76B2022A80A61600BD9237 /* news.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76B2012A80A61600BD9237 /* news.swift */; };
 		BD76B2042A81FC0F00BD9237 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76B2032A81FC0F00BD9237 /* SecondViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -53,7 +52,6 @@
 		BD68C6452A7AA3250063D193 /* TestWorkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestWorkUITests.swift; sourceTree = "<group>"; };
 		BD68C6472A7AA3250063D193 /* TestWorkUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestWorkUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BD68C6542A7F76030063D193 /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
-		BD76B2012A80A61600BD9237 /* news.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = news.swift; sourceTree = "<group>"; };
 		BD76B2032A81FC0F00BD9237 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,7 +108,6 @@
 				BD68C6252A7AA3230063D193 /* RootViewController.swift */,
 				BD76B2032A81FC0F00BD9237 /* SecondViewController.swift */,
 				BD68C6542A7F76030063D193 /* CustomCollectionViewCell.swift */,
-				BD76B2012A80A61600BD9237 /* news.swift */,
 				BD68C62D2A7AA3240063D193 /* Assets.xcassets */,
 				BD68C62F2A7AA3240063D193 /* LaunchScreen.storyboard */,
 				BD68C6322A7AA3240063D193 /* Info.plist */,
@@ -266,7 +263,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD76B2022A80A61600BD9237 /* news.swift in Sources */,
 				BD68C62C2A7AA3230063D193 /* TestWork.xcdatamodeld in Sources */,
 				BD68C6552A7F76030063D193 /* CustomCollectionViewCell.swift in Sources */,
 				BD68C6262A7AA3230063D193 /* RootViewController.swift in Sources */,
