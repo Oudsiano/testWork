@@ -91,7 +91,6 @@ let urlString = "https://newsapi.org/v2/everything?q=bitcoin&from=2019-12-30&sor
                 let decoder = JSONDecoder()
                 do {
                     let newsFeed = try decoder.decode(NewsFeed.self, from: data!)
-                    print(newsFeed)
                 }
                 catch {
                     print("Error in JSON parse")
