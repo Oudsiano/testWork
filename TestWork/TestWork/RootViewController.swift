@@ -76,7 +76,7 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     }
     
     func obtainPosts() {
-let urlString = "https://newsapi.org/v2/everything?q=bitcoin&from=2019-12-30&sortBy=publishedAt&apiKey=8c4d5faa662f4dce849d17d89e86ca14"
+let urlString = "https://newsapi.org/v2/everything?q=tesla&from=2023-07-06&sortBy=publishedAt&apiKey=API_KEY"
         let url = URL(string: urlString)
         
         guard url != nil else {
@@ -91,6 +91,7 @@ let urlString = "https://newsapi.org/v2/everything?q=bitcoin&from=2019-12-30&sor
                 let decoder = JSONDecoder()
                 do {
                     let newsFeed = try decoder.decode(NewsFeed.self, from: data!)
+                    print(newsFeed.articles)
                 }
                 catch {
                     print("Error in JSON parse")
