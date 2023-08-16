@@ -20,6 +20,7 @@
 		BD76B2042A81FC0F00BD9237 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76B2032A81FC0F00BD9237 /* SecondViewController.swift */; };
 		BDAC070A2A8A5FB900144C8D /* NewsFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC07092A8A5FB900144C8D /* NewsFeed.swift */; };
 		BDAC070C2A8A721400144C8D /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC070B2A8A721400144C8D /* Article.swift */; };
+		BDAC070E2A8C9EFF00144C8D /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC070D2A8C9EFF00144C8D /* ApiManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		BD76B2032A81FC0F00BD9237 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		BDAC07092A8A5FB900144C8D /* NewsFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeed.swift; sourceTree = "<group>"; };
 		BDAC070B2A8A721400144C8D /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
+		BDAC070D2A8C9EFF00144C8D /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 				BD68C6542A7F76030063D193 /* CustomCollectionViewCell.swift */,
 				BDAC07092A8A5FB900144C8D /* NewsFeed.swift */,
 				BDAC070B2A8A721400144C8D /* Article.swift */,
+				BDAC070D2A8C9EFF00144C8D /* ApiManager.swift */,
 				BD68C62D2A7AA3240063D193 /* Assets.xcassets */,
 				BD68C62F2A7AA3240063D193 /* LaunchScreen.storyboard */,
 				BD68C6322A7AA3240063D193 /* Info.plist */,
@@ -270,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDAC070C2A8A721400144C8D /* Article.swift in Sources */,
+				BDAC070E2A8C9EFF00144C8D /* ApiManager.swift in Sources */,
 				BDAC070A2A8A5FB900144C8D /* NewsFeed.swift in Sources */,
 				BD68C62C2A7AA3230063D193 /* TestWork.xcdatamodeld in Sources */,
 				BD68C6552A7F76030063D193 /* CustomCollectionViewCell.swift in Sources */,

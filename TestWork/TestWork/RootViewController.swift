@@ -27,7 +27,8 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     
     override func viewDidLoad() {
         setupCollectionView()
-        obtainPosts()
+       // obtainPosts()
+        APIManager.shared.getWeather( )
     }
     
     func setupCollectionView() {
@@ -75,31 +76,7 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
         VC.modalTransitionStyle = .coverVertical
     }
     
-    func obtainPosts() {
-let urlString = "https://newsapi.org/v2/everything?q=tesla&from=2023-07-06&sortBy=publishedAt&apiKey=API_KEY"
-        let url = URL(string: urlString)
-        
-        guard url != nil else {
-            return
-        }
-        let session = URLSession.shared
-        
-        let dataTask = session.dataTask(with: url!) { (data, response, error) in
-            
-            //check for error 
-            if error == nil && data != nil {
-                let decoder = JSONDecoder()
-                do {
-                    let newsFeed = try decoder.decode(NewsFeed.self, from: data!)
-                    print(newsFeed.articles)
-                }
-                catch {
-                    print("Error in JSON parse")
-                }
-            }
-        }
-        
-        dataTask.resume()
+    private func obtainPost() {
         
     }
 }
