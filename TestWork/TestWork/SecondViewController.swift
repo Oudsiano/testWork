@@ -5,6 +5,7 @@ final class SecondViewController: RootViewController {
     let textForHeadingInput: String
     let textForDate: String
     let linkToSourceInput: String
+//    let imageForNews: UIImage
     enum Constants {
         enum TextLabel {
             static let height = 50 as CGFloat
@@ -52,14 +53,14 @@ final class SecondViewController: RootViewController {
     private lazy var datePublication: UILabel = {
         let view = UILabel()
         view.backgroundColor = Constants.DatePublication.backgroundColor
-        view.text = Constants.DatePublication.text
+        view.text = self.textForDate
         view.numberOfLines = 0
         return view
     }()
     private lazy var linkToSource: UILabel = {
         let view = UILabel()
         view.backgroundColor = Constants.DatePublication.backgroundColor
-        view.text = Constants.LinkToSourse.text
+        view.text = self.textForDate
         view.numberOfLines = 0
         return view
     }()
@@ -74,7 +75,7 @@ final class SecondViewController: RootViewController {
     private lazy var headingNews: UILabel = {
         let view = UILabel()
         view.backgroundColor = Constants.Heading.backgroundColor
-        view.text = Constants.Heading.text
+        view.text = self.textForHeadingInput
         view.numberOfLines = 0
         view.font = UIFont(name: "Avenir Next", size: CGFloat(Constants.Heading.fontSize))
         return view
@@ -90,6 +91,7 @@ final class SecondViewController: RootViewController {
         self.textForHeadingInput = textForHeadingInput
         self.textForDate = textForDate
         self.linkToSourceInput = linkToSourceInput
+//        self.imageForNews = imageForNews
         super.init(nibName: nil, bundle: nil)
         setupImageNews()
         
