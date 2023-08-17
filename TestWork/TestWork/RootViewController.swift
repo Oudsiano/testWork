@@ -81,13 +81,13 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("news \(indexPath.row + 1) is tapped")
         
-//        indexNews = indexPath.row
-//        print(newsDescription.count)
-//        newsDescription = newsTitles[indexNews]
-//        newsHeading = newsHeadings[indexNews]
-//        newsDate = newsDates[indexNews]
-//        newsLinkToSource = newsLinkToSources[indexNews]
-//        newsImageIndex = imageNewses[indexNews]
+        indexNews = indexPath.row
+        print(newsDescription.count)
+        newsDescription = newsTitles[indexNews]
+        newsHeading = newsHeadings[indexNews]
+        newsDate = newsDates[indexNews]
+        newsLinkToSource = newsLinkToSources[indexNews]
+        newsImageIndex = imageNewses[indexNews]
 //        lastImageNews = imageNewsesArrayImage[0]
         
         tapCell()
@@ -101,7 +101,7 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     }
     
     func obtainPosts() {
-        let urlString = "https://newsapi.org/v2/everything?q=tesla&from=2023-07-16&sortBy=publishedAt&apiKey=be4975f02b964a008b5186c21ec7ccab"
+        let urlString = "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=be4975f02b964a008b5186c21ec7ccab"
         let url = URL(string: urlString)
         
         guard url != nil else {
@@ -109,7 +109,7 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
         }
         let session = URLSession.shared
         
-        let dataTask = session.dataTask(with: url!) { [self] (data, response, error) in
+        let dataTask = session.dataTask(with: url!) {(data, response, error) in
             
             //check for error 
             if error == nil && data != nil {
@@ -121,15 +121,14 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
 //                    print(newsFeed.articles?[0].title)
 //                    self.article = newsFeed.articles?[0].description
                     
-//                    print(newsFeed.articles.count)
-//                    for i in 0...newsCount {
-//                            newsTitles.append(newsFeed.articles[i].description!)
-//                            newsHeadings.append(newsFeed.articles[i].title!)
-//                            newsDates.append(newsFeed.articles[i].publishedAt!)
-//                            newsLinkToSources.append(newsFeed.articles[i].url!)
+                    print(newsFeed.articles.count)
+                    for i in 0...20 {
+                        newsTitles.append(newsFeed.articles[i].description)
+                        newsHeadings.append(newsFeed.articles[i].title!)
+                        newsDates.append(newsFeed.articles[i].publishedAt!)
+                        newsLinkToSources.append(newsFeed.articles[i].url!)
 //                            imageNewses.append(newsFeed.articles[i].urlToImage ?? "net")
-//
-//                    }
+                    }
                     
                 }
                 catch {
