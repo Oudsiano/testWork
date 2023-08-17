@@ -5,7 +5,7 @@ final class SecondViewController: RootViewController {
     let textForHeadingInput: String
     let textForDate: String
     let linkToSourceInput: String
-//    let imageForNews: UIImage
+
     enum Constants {
         enum TextLabel {
             static let height = 50 as CGFloat
@@ -91,7 +91,6 @@ final class SecondViewController: RootViewController {
         self.textForHeadingInput = textForHeadingInput
         self.textForDate = textForDate
         self.linkToSourceInput = linkToSourceInput
-//        self.imageForNews = imageForNews
         super.init(nibName: nil, bundle: nil)
         setupImageNews()
         

@@ -7,14 +7,12 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     var newsDates: [String] = []
     var newsLinkToSources: [String] = []
     var imageNewses: [String] = []
-//    var imageNewsesArrayImage: [UIImage] = []
     
     var newsDescription = ""
     var newsHeading = ""
     var newsDate = ""
     var newsLinkToSource = ""
     var newsImageIndex: String = ""
-//    var lastImageNews: UIImage = UIImage(systemName: "house")!
 
     
     var indexNews = 0
@@ -83,12 +81,12 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("news \(indexPath.row + 1) is tapped")
         
-        indexNews = indexPath.row
-        print(newsDescription.count + 25)
-        newsDescription = newsTitles[indexNews]
-        newsHeading = newsHeadings[indexNews]
-        newsDate = newsDates[indexNews]
-        newsLinkToSource = newsLinkToSources[indexNews]
+//        indexNews = indexPath.row
+//        print(newsDescription.count)
+//        newsDescription = newsTitles[indexNews]
+//        newsHeading = newsHeadings[indexNews]
+//        newsDate = newsDates[indexNews]
+//        newsLinkToSource = newsLinkToSources[indexNews]
 //        newsImageIndex = imageNewses[indexNews]
 //        lastImageNews = imageNewsesArrayImage[0]
         
@@ -118,22 +116,21 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
                 let decoder = JSONDecoder()
                 do {
                     let newsFeed = try decoder.decode(NewsFeed.self, from: data!)
-//                    print(newsFeed)
+                    print(newsFeed)
 //                    print(newsFeed.articles?.count)
 //                    print(newsFeed.articles?[0].title)
 //                    self.article = newsFeed.articles?[0].description
                     
-                    print(newsFeed.articles.count)
-                    for i in 0...newsCount {
-                        if (newsFeed.articles[i].description != nil) {
-                            newsTitles.append(newsFeed.articles[i].description!)
-                            newsHeadings.append(newsFeed.articles[i].title!)
-                            newsDates.append(newsFeed.articles[i].publishedAt!)
-                            newsLinkToSources.append(newsFeed.articles[i].url!)
-                            imageNewses.append(newsFeed.articles[i].urlToImage ?? "net")
-//                            print(newsFeed.articles[0].urlToImage)
-                        }
-                    }
+//                    print(newsFeed.articles.count)
+//                    for i in 0...newsCount {
+//                            newsTitles.append(newsFeed.articles[i].description!)
+//                            newsHeadings.append(newsFeed.articles[i].title!)
+//                            newsDates.append(newsFeed.articles[i].publishedAt!)
+//                            newsLinkToSources.append(newsFeed.articles[i].url!)
+//                            imageNewses.append(newsFeed.articles[i].urlToImage ?? "net")
+//
+//                    }
+                    
                 }
                 catch {
                     print("Error in JSON parse")
@@ -144,9 +141,5 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
         dataTask.resume()
         
     }
-//    private func newsImageAdded(link: String) {
-//        let url = URL(string: link)
-//        let data = try? Data(contentsOf: url!)
-////        imageNewsesArrayImage.append(((UIImage(data: data!) ?? UIImage(systemName: "house"))!))
-//    }
+    
 }
