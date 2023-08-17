@@ -60,7 +60,7 @@ final class SecondViewController: RootViewController {
     private lazy var linkToSource: UILabel = {
         let view = UILabel()
         view.backgroundColor = Constants.DatePublication.backgroundColor
-        view.text = self.textForDate
+        view.text = self.linkToSourceInput
         view.numberOfLines = 0
         return view
     }()

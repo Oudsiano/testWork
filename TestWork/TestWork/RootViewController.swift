@@ -2,11 +2,12 @@ import UIKit
 
 class RootViewController: UIViewController, UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     
-    var newsTitles: [String] = []
+    var newsDescriptions: [String] = []
     var newsHeadings: [String] = []
     var newsDates: [String] = []
     var newsLinkToSources: [String] = []
-    var imageNewses: [String] = []
+
+    
     
     var newsDescription = ""
     var newsHeading = ""
@@ -41,8 +42,9 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     var collectionVIew: UICollectionView! //для создания коллекции сначала нужен ее экземпляр
     
     override func viewDidLoad() {
-        setupCollectionView()
         obtainPosts()
+        setupCollectionView()
+        
     }
     
     func setupCollectionView() {
@@ -80,20 +82,15 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("news \(indexPath.row + 1) is tapped")
-        
         indexNews = indexPath.row
-        print(newsDescription.count)
-        newsDescription = newsTitles[indexNews]
-        newsHeading = newsHeadings[indexNews]
-        newsDate = newsDates[indexNews]
-        newsLinkToSource = newsLinkToSources[indexNews]
-        newsImageIndex = imageNewses[indexNews]
-//        lastImageNews = imageNewsesArrayImage[0]
-        
         tapCell()
         
     }
     private func tapCell() {
+        newsDescription = newsDescriptions[indexNews]
+        newsHeading = newsHeadings[indexNews]
+        newsDate = newsDates[indexNews]
+        newsLinkToSource = newsLinkToSources[indexNews]
         let VC = SecondViewController(textForNews: newsDescription,textForHeadingInput: newsHeading,textForDate: newsDate,linkToSourceInput: newsLinkToSource)
         navigationController?.pushViewController(VC, animated: true)
         VC.modalPresentationStyle = .overFullScreen
@@ -101,7 +98,7 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     }
     
     func obtainPosts() {
-        let urlString = "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=be4975f02b964a008b5186c21ec7ccab"
+        let urlString = "https://newsapi.org/v2/everything?q=tesla&from=2023-07-17&sortBy=publishedAt&apiKey=be4975f02b964a008b5186c21ec7ccab"
         let url = URL(string: urlString)
         
         guard url != nil else {
@@ -109,27 +106,20 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
         }
         let session = URLSession.shared
         
-        let dataTask = session.dataTask(with: url!) {(data, response, error) in
+        let dataTask = session.dataTask(with: url!) { [self] (data, response, error) in
             
             //check for error 
             if error == nil && data != nil {
                 let decoder = JSONDecoder()
                 do {
-                    let newsFeed = try decoder.decode(NewsFeed.self, from: data!)
-                    print(newsFeed)
-//                    print(newsFeed.articles?.count)
-//                    print(newsFeed.articles?[0].title)
-//                    self.article = newsFeed.articles?[0].description
-                    
-                    print(newsFeed.articles.count)
-                    for i in 0...20 {
-                        newsTitles.append(newsFeed.articles[i].description)
-                        newsHeadings.append(newsFeed.articles[i].title!)
-                        newsDates.append(newsFeed.articles[i].publishedAt!)
-                        newsLinkToSources.append(newsFeed.articles[i].url!)
-//                            imageNewses.append(newsFeed.articles[i].urlToImage ?? "net")
+                     let newsFeed = try decoder.decode(NewsFeed.self, from: data!)
+//                    print(newsFeed)
+                    for news in 0...(newsFeed.articles.count-1) {
+                        newsDescriptions.append(newsFeed.articles[news].description!)
+                        newsHeadings.append(newsFeed.articles[news].title!)
+                        newsDates.append(newsFeed.articles[news].publishedAt!)
+                        newsLinkToSources.append(newsFeed.articles[news].url!)
                     }
-                    
                 }
                 catch {
                     print("Error in JSON parse")
