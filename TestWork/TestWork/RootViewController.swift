@@ -2,6 +2,8 @@ import UIKit
 
 class RootViewController: UIViewController, UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     
+    var newsTitle: [String] = []
+    var newsCount: Int = 20
     enum Constants{
         enum CollectionView {
             static let title = "Список новостоей"
@@ -65,18 +67,20 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("news \(indexPath.row + 1) is tapped")
+        print(newsTitle[indexPath.row])
+        
         tapCell()
         
     }
     private func tapCell() {
-        let VC = SecondViewController(textForNews: "Pochem")
+        let VC = SecondViewController(textForNews: "pochem")
         navigationController?.pushViewController(VC, animated: true)
         VC.modalPresentationStyle = .overFullScreen
         VC.modalTransitionStyle = .coverVertical
     }
     
     func obtainPosts() {
-let urlString = "https://newsapi.org/v2/everything?q=bitcoin&from=2019-12-30&sortBy=publishedAt&apiKey=8c4d5faa662f4dce849d17d89e86ca14"
+        let urlString = "https://newsapi.org/v2/everything?q=tesla&from=2023-07-16&sortBy=publishedAt&apiKey=be4975f02b964a008b5186c21ec7ccab"
         let url = URL(string: urlString)
         
         guard url != nil else {
@@ -84,13 +88,23 @@ let urlString = "https://newsapi.org/v2/everything?q=bitcoin&from=2019-12-30&sor
         }
         let session = URLSession.shared
         
-        let dataTask = session.dataTask(with: url!) { (data, response, error) in
+        let dataTask = session.dataTask(with: url!) { [self] (data, response, error) in
             
             //check for error 
             if error == nil && data != nil {
                 let decoder = JSONDecoder()
                 do {
-                    let newsFeed = try decoder.decode(NewsFeed.self, from: data!)
+                    var newsFeed = try decoder.decode(NewsFeed.self, from: data!)
+//                    print(newsFeed)
+//                    print(newsFeed.articles?.count)
+//                    print(newsFeed.articles?[0].title)
+//                    self.article = newsFeed.articles?[0].description
+                    print(newsFeed.articles.count)
+                    for i in 0...newsCount {
+                        newsTitle.append(newsFeed.articles[i].title!)
+                        
+                    }
+                    return
                 }
                 catch {
                     print("Error in JSON parse")
@@ -101,4 +115,5 @@ let urlString = "https://newsapi.org/v2/everything?q=bitcoin&from=2019-12-30&sor
         dataTask.resume()
         
     }
+    
 }
