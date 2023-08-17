@@ -2,7 +2,18 @@ import UIKit
 
 class RootViewController: UIViewController, UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     
-    var newsTitle: [String] = []
+    var newsTitles: [String] = []
+    var newsHeadings: [String] = []
+    var newsDates: [String] = []
+    var newsLinkToSources:[String] = []
+    
+    var newsDescription = ""
+    var newsHeading = ""
+    var newsDate = ""
+    var newsLinkToSource = ""
+    
+    
+    
     var newsCount: Int = 20
     enum Constants{
         enum CollectionView {
@@ -67,13 +78,17 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("news \(indexPath.row + 1) is tapped")
-        print(newsTitle[indexPath.row])
+        newsDescription = newsTitles[indexPath.row]
+//        newsHeading = newsHeadings[indexPath.row]
+//        newsDate = newsDates[indexPath.row]
+//        newsLinkToSource = newsLinkToSources[indexPath.row]
+        
         
         tapCell()
         
     }
     private func tapCell() {
-        let VC = SecondViewController(textForNews: "pochem")
+        let VC = SecondViewController(textForNews: newsDescription,textForHeadingInput: newsHeading,textForDate: newsDate,linkToSourceInput: newsLinkToSource)
         navigationController?.pushViewController(VC, animated: true)
         VC.modalPresentationStyle = .overFullScreen
         VC.modalTransitionStyle = .coverVertical
@@ -94,15 +109,20 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
             if error == nil && data != nil {
                 let decoder = JSONDecoder()
                 do {
-                    var newsFeed = try decoder.decode(NewsFeed.self, from: data!)
+                    let newsFeed = try decoder.decode(NewsFeed.self, from: data!)
 //                    print(newsFeed)
 //                    print(newsFeed.articles?.count)
 //                    print(newsFeed.articles?[0].title)
 //                    self.article = newsFeed.articles?[0].description
                     print(newsFeed.articles.count)
                     for i in 0...newsCount {
-                        newsTitle.append(newsFeed.articles[i].title!)
-                        
+                        guard (newsFeed.articles[i].description != nil) else {
+                            newsTitles.append(newsFeed.articles[i].description!)
+                            //                        newsHeadings.append(newsFeed.articles[i].title!)
+                            //                        newsDates.append(newsFeed.articles[i].publishedAt!)
+                            //                        newsLinkToSources.append(newsFeed.articles[i].url!)
+                        return
+                        }
                     }
                     return
                 }

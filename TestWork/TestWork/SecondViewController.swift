@@ -2,7 +2,9 @@ import UIKit
 
 final class SecondViewController: RootViewController {
     let textForNews: String
-    
+    let textForHeadingInput: String
+    let textForDate: String
+    let linkToSourceInput: String
     enum Constants {
         enum TextLabel {
             static let height = 50 as CGFloat
@@ -83,9 +85,15 @@ final class SecondViewController: RootViewController {
     
     // MARK: - Lifecycle
     
-    init(textForNews: String) {
+    init(textForNews: String,textForHeadingInput: String, textForDate: String, linkToSourceInput: String) {
         self.textForNews = textForNews
+        self.textForHeadingInput = textForHeadingInput
+        self.textForDate = textForDate
+        self.linkToSourceInput = linkToSourceInput
         super.init(nibName: nil, bundle: nil)
+        setupImageNews()
+        
+        setupLinkToSource()
     }
     
     required init?(coder: NSCoder) {
