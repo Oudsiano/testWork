@@ -80,6 +80,7 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
         return CGSize(width: view.frame.width/2 - Constants.CollectionView.horizontalDistanceCell, height: Constants.CollectionView.hightCell)
     }//устанавливаем размер ячейки
     
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("news \(indexPath.row + 1) is tapped")
         indexNews = indexPath.row
