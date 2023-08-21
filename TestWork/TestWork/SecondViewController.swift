@@ -5,6 +5,7 @@ final class SecondViewController: RootViewController {
     let textForHeadingInput: String
     let textForDate: String
     let linkToSourceInput: String
+    let newsPicture3: String
 
     enum Constants {
         enum TextLabel {
@@ -45,7 +46,7 @@ final class SecondViewController: RootViewController {
     // Properties
     private let newsImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = (UIImage(systemName: "house")) //устанавливаем изображение
+        imageView.image = imageView.loadImage(url: URL(newsPicture3)) // //устанавливаем изображение
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         return imageView
@@ -86,11 +87,12 @@ final class SecondViewController: RootViewController {
     
     // MARK: - Lifecycle
     
-    init(textForNews: String,textForHeadingInput: String, textForDate: String, linkToSourceInput: String) {
+    init(textForNews: String,textForHeadingInput: String, textForDate: String, linkToSourceInput: String, newsPicture2: String) {
         self.textForNews = textForNews
         self.textForHeadingInput = textForHeadingInput
         self.textForDate = textForDate
         self.linkToSourceInput = linkToSourceInput
+        self.newsPicture3 = newsPicture2
         super.init(nibName: nil, bundle: nil)
         setupImageNews()
         
@@ -106,6 +108,7 @@ final class SecondViewController: RootViewController {
         view.backgroundColor = .white
         setupUI()
         print(ffgr)
+        print(newsPicture3)
     }
     // MARK: - Private
     
@@ -173,6 +176,20 @@ final class SecondViewController: RootViewController {
             labelForMenu.topAnchor.constraint(equalTo: view.topAnchor, constant: Constants.TextLabel.offsetToTopSafeArea),
             labelForMenu.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: Constants.TextLabel.offsetTopBotSafeAre)
         ])
+    }
+}
+extension UIImageView {
+    func loadImage(url: URL) {
+        DispatchQueue.global().async {
+            [weak self] in
+            if let data = try? Data(contentsOf: url) {
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self?.image = image
+                    }
+                }
+            }
+        }
     }
 }
 

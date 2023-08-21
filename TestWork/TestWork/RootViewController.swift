@@ -6,7 +6,7 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     var newsHeadings: [String] = []
     var newsDates: [String] = []
     var newsLinkToSources: [String] = []
-
+    var newsPictures: [String] = []
     
     
     var newsDescription = ""
@@ -14,7 +14,7 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     var newsDate = ""
     var newsLinkToSource = ""
     var newsImageIndex: String = ""
-
+    var newsPicture = ""
     
     var indexNews = 0
     var newsCount: Int = 20
@@ -91,14 +91,15 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
         newsHeading = newsHeadings[indexNews]
         newsDate = newsDates[indexNews]
         newsLinkToSource = newsLinkToSources[indexNews]
-        let VC = SecondViewController(textForNews: newsDescription,textForHeadingInput: newsHeading,textForDate: newsDate,linkToSourceInput: newsLinkToSource)
+        newsPicture = newsPictures[indexNews]
+        let VC = SecondViewController(textForNews: newsDescription,textForHeadingInput: newsHeading,textForDate: newsDate,linkToSourceInput: newsLinkToSource, newsPicture2: newsPicture)
         navigationController?.pushViewController(VC, animated: true)
         VC.modalPresentationStyle = .overFullScreen
         VC.modalTransitionStyle = .coverVertical
     }
     
     func obtainPosts() {
-        let urlString = "https://newsapi.org/v2/everything?q=tesla&from=2023-07-17&sortBy=publishedAt&apiKey=be4975f02b964a008b5186c21ec7ccab"
+        let urlString = "https://newsapi.org/v2/everything?q=tesla&from=2023-07-20&sortBy=publishedAt&apiKey=be4975f02b964a008b5186c21ec7ccab"
         let url = URL(string: urlString)
         
         guard url != nil else {
@@ -119,6 +120,7 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
                         newsHeadings.append(newsFeed.articles[news].title!)
                         newsDates.append(newsFeed.articles[news].publishedAt!)
                         newsLinkToSources.append(newsFeed.articles[news].url!)
+                        newsPictures.append(newsFeed.articles[news].urlToImage ?? "net")
                     }
                 }
                 catch {
