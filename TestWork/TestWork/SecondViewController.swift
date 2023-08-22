@@ -46,7 +46,6 @@ final class SecondViewController: RootViewController {
     // Properties
     private let newsImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = imageView.loadImage(url: URL(newsPicture3)) // //устанавливаем изображение
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         return imageView
@@ -163,6 +162,20 @@ final class SecondViewController: RootViewController {
         
         newsImage.layer.cornerRadius = Constants.Image.cornerRadius //устанавливаем скругление картинки
         newsImage.layer.masksToBounds = true
+        
+        let imageView = UIImageView(frame: CGRect(x:0, y:0, width:200, height:200))
+                imageView.center = self.view.center
+                imageView.contentMode = UIView.ContentMode.scaleAspectFit
+                view.addSubview(imageView)
+         
+                // Create URL
+                let imageUrlString = newsPicture3
+                guard let imageUrl:URL = URL(string: imageUrlString) else {
+                    return
+                }
+            imageView.loadImage(url: imageUrl)
+         
+                self.view = view
     }
     
     

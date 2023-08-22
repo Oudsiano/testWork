@@ -44,7 +44,6 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     override func viewDidLoad() {
         obtainPosts()
         setupCollectionView()
-        
     }
     
     func setupCollectionView() {
@@ -100,7 +99,7 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     }
     
     func obtainPosts() {
-        let urlString = "https://newsapi.org/v2/everything?q=tesla&from=2023-07-20&sortBy=publishedAt&apiKey=be4975f02b964a008b5186c21ec7ccab"
+        let urlString = "https://newsapi.org/v2/everything?q=tesla&from=2023-07-22&sortBy=publishedAt&apiKey=be4975f02b964a008b5186c21ec7ccab"
         let url = URL(string: urlString)
         
         guard url != nil else {
@@ -115,7 +114,7 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
                 let decoder = JSONDecoder()
                 do {
                      let newsFeed = try decoder.decode(NewsFeed.self, from: data!)
-//                    print(newsFeed)
+                    print(newsFeed)
                     for news in 0...(newsFeed.articles.count-1) {
                         newsDescriptions.append(newsFeed.articles[news].description!)
                         newsHeadings.append(newsFeed.articles[news].title!)
