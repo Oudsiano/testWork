@@ -1,6 +1,7 @@
 import UIKit
 
 class CustomCollectionViewCell: UICollectionViewCell {//создаем ячейку наследуясь от ячейки пользовательского интефейса
+
     enum Constants{
         enum Cell {
             enum Label {
@@ -30,7 +31,7 @@ class CustomCollectionViewCell: UICollectionViewCell {//создаем ячей�
     private let myLabel: UILabel = {
         let label = UILabel()
         label.textColor = Constants.Cell.Label.textTitleColor
-        label.text = Constants.Cell.Label.newsTitle
+        label.text = Constants.Cell.Label.newфsTitle
         label.backgroundColor = Constants.Cell.Label.labelBackgroundColor
         label.textAlignment = .center
         return label
@@ -70,6 +71,11 @@ class CustomCollectionViewCell: UICollectionViewCell {//создаем ячей�
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    //TODO: по аналогии картинку и количество просмотров
+    func configure(articleForCells: Article) {
+        myLabel.text = articleForCells.title
+    }
+    
     private func setupImageNews() {
         
         myImage.translatesAutoresizingMaskIntoConstraints = false

@@ -2,22 +2,24 @@ import UIKit
 
 class RootViewController: UIViewController, UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     
-    var newsDescriptions: [String] = []
-    var newsHeadings: [String] = []
-    var newsDates: [String] = []
-    var newsLinkToSources: [String] = []
-    var newsPictures: [String] = []
+    var newsArticles: [Article] = []
     
+//    var newsDescriptions: [String] = []
+//    var newsHeadings: [String] = []
+//    var newsDates: [String] = []
+//    var newsLinkToSources: [String] = []
+//    var newsPictures: [String] = []
+//
+//
+//    var newsDescription = ""
+//    var newsHeading = ""
+//    var newsDate = ""
+//    var newsLinkToSource = ""
+//    var newsImageIndex: String = ""
+//    var newsPicture = ""
     
-    var newsDescription = ""
-    var newsHeading = ""
-    var newsDate = ""
-    var newsLinkToSource = ""
-    var newsImageIndex: String = ""
-    var newsPicture = ""
-    
-    var indexNews = 0
-    var newsCount: Int = 20
+//    var indexNews = 0
+//    var newsCount: Int = 20
     enum Constants{
         enum CollectionView {
             static let title = "Список новостоей"
@@ -38,7 +40,7 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     let sessionConfiguration = URLSessionConfiguration.default
     let session = URLSession.shared//подключение к сети
     let decoder = JSONDecoder() //переводчик на swift с Json
-    
+    //TODO: убрать форс анврапинг
     var collectionVIew: UICollectionView! //для создания коллекции сначала нужен ее экземпляр
     
     override func viewDidLoad() {
@@ -65,12 +67,14 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) ->  Int { //Получаем точное количество элементов в разделе или сколько ячеек мы хотим отобразить в коллекции
-        return Constants.CollectionView.cellCount
-        
+        return newsArticles.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.identifier, for: indexPath) as! CustomCollectionViewCell //создаем экземпляр ячейки с использованием многоразовой ячейки с идентификатором из списка представления коллекции
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.identifier, for: indexPath) as! CustomCollectionViewCell
+        let articleToIndex = newsArticles[indexPath.row]
+        cell.configure(articleForCells: articleToIndex)
+        //создаем экземпляр ячейки с использованием многоразовой ячейки с идентификатором из списка представления коллекции
         //используем в withReuseIdentifier зарегистрированный идентификатор
         //в withReuseIdentifier указываем путь
         return cell
@@ -82,32 +86,28 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("news \(indexPath.row + 1) is tapped")
-        indexNews = indexPath.row
-        tapCell()
+//        indexNews = indexPath.row
+        let articleToIndex = newsArticles[indexPath.row]
+        tapCell(newsArticle: articleToIndex)
         
     }
-    private func tapCell() {
-        newsDescription = newsDescriptions[indexNews]
-        newsHeading = newsHeadings[indexNews]
-        newsDate = newsDates[indexNews]
-        newsLinkToSource = newsLinkToSources[indexNews]
-        newsPicture = newsPictures[indexNews]
-        let VC = SecondViewController(textForNews: newsDescription,textForHeadingInput: newsHeading,textForDate: newsDate,linkToSourceInput: newsLinkToSource, newsPicture2: newsPicture)
+    private func tapCell(newsArticle: Article) {
+        let VC = SecondViewController(newsArticle: newsArticle)
         navigationController?.pushViewController(VC, animated: true)
         VC.modalPresentationStyle = .overFullScreen
         VC.modalTransitionStyle = .coverVertical
     }
     
     func obtainPosts() {
-        let urlString = "https://newsapi.org/v2/everything?q=tesla&from=2023-07-22&sortBy=publishedAt&apiKey=be4975f02b964a008b5186c21ec7ccab"
-        let url = URL(string: urlString)
+        let urlString = "https://newsapi.org/v2/everything?q=tesla&from=2023-07-27&sortBy=publishedAt&apiKey=be4975f02b964a008b5186c21ec7ccab"
         
-        guard url != nil else {
+
+        guard let url = URL(string: urlString) else {
             return
         }
         let session = URLSession.shared
-        
-        let dataTask = session.dataTask(with: url!) { [self] (data, response, error) in
+        //TODO:
+        let dataTask = session.dataTask(with: url) { [self] (data, response, error) in
             
             //check for error 
             if error == nil && data != nil {
@@ -115,12 +115,9 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
                 do {
                      let newsFeed = try decoder.decode(NewsFeed.self, from: data!)
                     print(newsFeed)
-                    for news in 0...(newsFeed.articles.count-1) {
-                        newsDescriptions.append(newsFeed.articles[news].description!)
-                        newsHeadings.append(newsFeed.articles[news].title!)
-                        newsDates.append(newsFeed.articles[news].publishedAt!)
-                        newsLinkToSources.append(newsFeed.articles[news].url!)
-                        newsPictures.append(newsFeed.articles[news].urlToImage ?? "net")
+                    self.newsArticles = newsFeed.articles
+                    DispatchQueue.main.async {
+                        self.collectionVIew.reloadData()
                     }
                 }
                 catch {
@@ -128,9 +125,6 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
                 }
             }
         }
-        
         dataTask.resume()
-        
     }
-    
 }

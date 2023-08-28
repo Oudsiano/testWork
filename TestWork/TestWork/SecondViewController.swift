@@ -1,15 +1,26 @@
 import UIKit
 
 final class SecondViewController: RootViewController {
-    let textForNews: String
-    let textForHeadingInput: String
-    let textForDate: String
-    let linkToSourceInput: String
-    let newsPicture3: String
+    var articleNews: Article
+    var textForNews: String {
+        articleNews.description ?? "net novosti"
+    }
+    var textForHeadingInput: String {
+        articleNews.title ?? "net zagolovka"
+    }
+    var textForDate: String {
+        articleNews.publishedAt ?? "net dati"
+    }
+    var linkToSourceInput: String {
+        articleNews.url ?? "net ssilki"
+    }
+    var newsPicture3: String {
+        articleNews.urlToImage ?? " "
+    }
 
     enum Constants {
         enum TextLabel {
-            static let height = 50 as CGFloat
+            static let heighte = 50 as CGFloat
             static let width = 150
             static let backgroundColor = UIColor.green
             static let textColor = UIColor.black
@@ -86,12 +97,8 @@ final class SecondViewController: RootViewController {
     
     // MARK: - Lifecycle
     
-    init(textForNews: String,textForHeadingInput: String, textForDate: String, linkToSourceInput: String, newsPicture2: String) {
-        self.textForNews = textForNews
-        self.textForHeadingInput = textForHeadingInput
-        self.textForDate = textForDate
-        self.linkToSourceInput = linkToSourceInput
-        self.newsPicture3 = newsPicture2
+    init(newsArticle: Article) {
+        self.articleNews = newsArticle
         super.init(nibName: nil, bundle: nil)
         setupImageNews()
         
