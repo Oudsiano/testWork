@@ -74,7 +74,9 @@ class CustomCollectionViewCell: UICollectionViewCell {//создаем ячей�
     //TODO: по аналогии картинку и количество просмотров
     func configure(articleForCells: Article) {
         myLabel.text = articleForCells.title
+        myImage.image = articleForCells.urlToImage
     }
+    
     
     private func setupImageNews() {
         
@@ -113,5 +115,17 @@ class CustomCollectionViewCell: UICollectionViewCell {//создаем ячей�
         setupCellViewsCount()
     }
 }
-
-
+extension  UIImageView {
+    func loadImageForCell(url: URL) {
+        DispatchQueue.global().async {
+            [weak self] in
+            if let data = try? Data(contentsOf: url) {
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self?.image = image
+                    }
+                }
+            }
+        }
+    }
+}

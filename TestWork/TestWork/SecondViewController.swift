@@ -164,8 +164,9 @@ final class SecondViewController: RootViewController {
         newsImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             newsImage.topAnchor.constraint(equalTo: headingNews.bottomAnchor),
-//            newsImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//            newsImage.widthAnchor.constraint(equalToConstant: Constants.Image.imageWidth),
+            newsImage.widthAnchor.constraint(equalToConstant: 200 as CGFloat),
+            newsImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            newsImage.widthAnchor.constraint(equalToConstant: Constants.Image.imageWidth),
         ])
         
         newsImage.layer.cornerRadius = Constants.Image.cornerRadius //устанавливаем скругление картинки
