@@ -31,7 +31,7 @@ class CustomCollectionViewCell: UICollectionViewCell {//создаем ячей�
     private let myLabel: UILabel = {
         let label = UILabel()
         label.textColor = Constants.Cell.Label.textTitleColor
-        label.text = Constants.Cell.Label.newфsTitle
+        label.text = Constants.Cell.Label.newsTitle
         label.backgroundColor = Constants.Cell.Label.labelBackgroundColor
         label.textAlignment = .center
         return label

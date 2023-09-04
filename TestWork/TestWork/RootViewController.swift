@@ -99,7 +99,7 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     }
     
     func obtainPosts() {
-        let urlString = "https://newsapi.org/v2/everything?q=tesla&from=2023-07-27&sortBy=publishedAt&apiKey=be4975f02b964a008b5186c21ec7ccab"
+        let urlString = "https://newsapi.org/v2/everything?q=apple&from=2023-08-26&to=2023-08-26&sortBy=popularity&apiKey=be4975f02b964a008b5186c21ec7ccab"
         
 
         guard let url = URL(string: urlString) else {

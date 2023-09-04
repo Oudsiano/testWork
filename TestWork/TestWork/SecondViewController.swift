@@ -38,6 +38,7 @@ final class SecondViewController: RootViewController {
             static let backgroundColor = UIColor.white
             static let offsetToTopSafeArea = 100 as CGFloat
             static let fontSize = 25
+            static let leftOffsetHeading = 5 as CGFloat
         }
         enum DatePublication {
             static let text = "12.06.2023"
@@ -75,7 +76,7 @@ final class SecondViewController: RootViewController {
         view.numberOfLines = 0
         return view
     }()
-    
+
     private lazy var labelForMenu: UILabel = {
         let view = UILabel()
         view.backgroundColor = Constants.TextLabel.backgroundColor
@@ -89,6 +90,7 @@ final class SecondViewController: RootViewController {
         view.text = self.textForHeadingInput
         view.numberOfLines = 0
         view.font = UIFont(name: "Avenir Next", size: CGFloat(Constants.Heading.fontSize))
+        view.textAlignment = NSTextAlignment.center
         return view
     }()
     
@@ -132,7 +134,8 @@ final class SecondViewController: RootViewController {
         headingNews.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             headingNews.topAnchor.constraint(equalTo: view.topAnchor, constant: Constants.Heading.offsetToTopSafeArea),
-            headingNews.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            headingNews.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            headingNews.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,constant: Constants.Heading.leftOffsetHeading)
         ])
     }
     private func setupDatePublication() {
@@ -160,27 +163,24 @@ final class SecondViewController: RootViewController {
         view.addSubview(headingNews)
         newsImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            newsImage.topAnchor.constraint(equalTo: headingNews.topAnchor),
-            newsImage.bottomAnchor.constraint(equalTo: view.centerYAnchor),
-            newsImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            newsImage.widthAnchor.constraint(equalToConstant: Constants.Image.imageWidth),
-            //            newsImage.centerYAnchor.constraint(equalTo: view.centerXAnchor)
+            newsImage.topAnchor.constraint(equalTo: headingNews.bottomAnchor),
+//            newsImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            newsImage.widthAnchor.constraint(equalToConstant: Constants.Image.imageWidth),
         ])
         
         newsImage.layer.cornerRadius = Constants.Image.cornerRadius //устанавливаем скругление картинки
         newsImage.layer.masksToBounds = true
-        
-        let imageView = UIImageView(frame: CGRect(x:0, y:0, width:200, height:200))
-                imageView.center = self.view.center
-                imageView.contentMode = UIView.ContentMode.scaleAspectFit
-                view.addSubview(imageView)
-         
+//
+//        let imageView = UIImageView()
+//        newsImage.contentMode = UIView.ContentMode.scaleAspectFit
+//                view.addSubview(newsImage)
+//
                 // Create URL
                 let imageUrlString = newsPicture3
                 guard let imageUrl:URL = URL(string: imageUrlString) else {
                     return
                 }
-            imageView.loadImage(url: imageUrl)
+        newsImage.loadImage(url: imageUrl)
          
                 self.view = view
     }
