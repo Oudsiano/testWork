@@ -74,10 +74,16 @@ class CustomCollectionViewCell: UICollectionViewCell {//создаем ячей�
     //TODO: по аналогии картинку и количество просмотров
     func configure(articleForCells: Article) {
         myLabel.text = articleForCells.title
-        myImage.image = articleForCells.urlToImage
-    }
-    
-    
+        var newsPicture3: String {
+            articleForCells.urlToImage ?? " "
+        }
+        let imageUrlString = newsPicture3
+        guard let imageUrl:URL = URL(string: imageUrlString) else {
+            return
+        }
+        myImage.loadImage(url: imageUrl)
+        }
+        
     private func setupImageNews() {
         
         myImage.translatesAutoresizingMaskIntoConstraints = false

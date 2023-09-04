@@ -80,7 +80,7 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
         return cell
     }
     func collectionView(_ collectionView: UICollectionView,layout collectionViewLayout: UICollectionViewLayout,sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width/2 - Constants.CollectionView.horizontalDistanceCell, height: Constants.CollectionView.hightCell)
+        return CGSize(width: view.frame.width - Constants.CollectionView.horizontalDistanceCell, height: Constants.CollectionView.hightCell)
     }//устанавливаем размер ячейки
     
     
