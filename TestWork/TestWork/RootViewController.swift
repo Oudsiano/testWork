@@ -4,22 +4,6 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     
     var newsArticles: [Article] = []
     
-//    var newsDescriptions: [String] = []
-//    var newsHeadings: [String] = []
-//    var newsDates: [String] = []
-//    var newsLinkToSources: [String] = []
-//    var newsPictures: [String] = []
-//
-//
-//    var newsDescription = ""
-//    var newsHeading = ""
-//    var newsDate = ""
-//    var newsLinkToSource = ""
-//    var newsImageIndex: String = ""
-//    var newsPicture = ""
-    
-//    var indexNews = 0
-//    var newsCount: Int = 20
     enum Constants{
         enum CollectionView {
             static let title = "Список новостоей"

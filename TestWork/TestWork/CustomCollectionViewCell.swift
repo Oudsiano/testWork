@@ -6,7 +6,7 @@ class CustomCollectionViewCell: UICollectionViewCell {//создаем ячей�
         enum Cell {
             enum Label {
                 static let newsTitle = "Список новостоей"
-                static let labelBackgroundColor = UIColor.blue
+                static let labelBackgroundColor = UIColor.white
                 static let textTitleColor = UIColor.red
                 static let heightLabel = 50 as CGFloat
                 static let cornerRadiusLabel = 20 as CGFloat
@@ -33,7 +33,6 @@ class CustomCollectionViewCell: UICollectionViewCell {//создаем ячей�
         label.textColor = Constants.Cell.Label.textTitleColor
         label.text = Constants.Cell.Label.newsTitle
         label.backgroundColor = Constants.Cell.Label.labelBackgroundColor
-        label.textAlignment = .center
         return label
     }()
     private let viewsCount: UILabel = {
@@ -41,14 +40,13 @@ class CustomCollectionViewCell: UICollectionViewCell {//создаем ячей�
         viewsCount.text = Constants.Cell.ViewsCount.viewsCountText
         viewsCount.backgroundColor = Constants.Cell.ViewsCount.viewsCountBackgroundColor
         viewsCount.textColor = Constants.Cell.ViewsCount.textViewsCountColor
-        viewsCount.textAlignment = .center
         return viewsCount
     }()
     
     private let myImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = (UIImage(systemName: "house")) //устанавливаем изображение
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
     }()
@@ -89,7 +87,7 @@ class CustomCollectionViewCell: UICollectionViewCell {//создаем ячей�
         myImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             myImage.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            myImage.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            myImage.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
             myImage.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             myImage.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
@@ -98,20 +96,23 @@ class CustomCollectionViewCell: UICollectionViewCell {//создаем ячей�
         myImage.layer.masksToBounds = true
     }
     private func setupCellLabel() {
-        
-        myLabel.frame = CGRect(x: 0,
-                               y: contentView.frame.size.height - Constants.Cell.Label.labelBotOffsetCell ,
-                               width: contentView.frame.size.width,
-                               height: Constants.Cell.Label.heightLabel)
+        addSubview(myImage)
+        myLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            myLabel.topAnchor.constraint(equalTo: myImage.topAnchor),
+            myLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            myLabel.rightAnchor.constraint(equalTo: myImage.leftAnchor),
+            myLabel.bottomAnchor.constraint(equalTo: myImage.bottomAnchor)
+        ])
         myLabel.layer.cornerRadius = Constants.Cell.Label.cornerRadiusLabel
         myLabel.layer.masksToBounds = true
         
     }
     private func setupCellViewsCount() {
-        viewsCount.frame = CGRect(x: contentView.frame.size.width - Constants.Cell.ViewsCount.rightOffset,
-                                  y: 0,
-                                  width: Constants.Cell.ViewsCount.widthViewsCount,
-                                  height: Constants.Cell.ViewsCount.heightViewsCount)
+//        viewsCount.frame = CGRect(x: contentView.frame.size.width - Constants.Cell.ViewsCount.rightOffset,
+//                                  y: 0,
+//                                  width: Constants.Cell.ViewsCount.widthViewsCount,
+//                                  height: Constants.Cell.ViewsCount.heightViewsCount)
         viewsCount.layer.cornerRadius = Constants.Cell.ViewsCount.cornerRadiusViewsCount
         viewsCount.layer.masksToBounds = true
     }

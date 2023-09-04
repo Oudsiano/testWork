@@ -177,13 +177,8 @@ final class SecondViewController: RootViewController {
 //                view.addSubview(newsImage)
 //
                 // Create URL
-                let imageUrlString = newsPicture3
-                guard let imageUrl:URL = URL(string: imageUrlString) else {
-                    return
-                }
-        newsImage.loadImage(url: imageUrl)
-         
-                self.view = view
+                
+        
     }
     
     
