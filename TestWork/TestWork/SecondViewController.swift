@@ -20,9 +20,9 @@ final class SecondViewController: RootViewController {
 
     enum Constants {
         enum TextLabel {
-            static let heighte = 50 as CGFloat
+            static let height = 50 as CGFloat
             static let width = 150
-            static let backgroundColor = UIColor.green
+            static let backgroundColor = UIColor.white
             static let textColor = UIColor.black
             static let offsetToLeftSafeArea = 0 as CGFloat
             static let offsetToRightSafeArea = 0 as CGFloat
@@ -31,7 +31,7 @@ final class SecondViewController: RootViewController {
         }
         enum Image {
             static let cornerRadius = 20 as CGFloat
-            static let imageWidth = 300 as CGFloat
+            static let imageWidth = 100 as CGFloat
         }
         enum Heading {
             static let text = "Heading"
@@ -82,6 +82,7 @@ final class SecondViewController: RootViewController {
         view.backgroundColor = Constants.TextLabel.backgroundColor
         view.text = self.textForNews
         view.numberOfLines = 0
+        view.textAlignment = .left
         return view
     }()
     private lazy var headingNews: UILabel = {
@@ -90,7 +91,8 @@ final class SecondViewController: RootViewController {
         view.text = self.textForHeadingInput
         view.numberOfLines = 0
         view.font = UIFont(name: "Avenir Next", size: CGFloat(Constants.Heading.fontSize))
-        view.textAlignment = NSTextAlignment.center
+        view.textAlignment = NSTextAlignment.left
+        view.font = UIFont.boldSystemFont(ofSize: 40.0)
         return view
     }()
     
@@ -163,21 +165,24 @@ final class SecondViewController: RootViewController {
         view.addSubview(headingNews)
         newsImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            newsImage.topAnchor.constraint(equalTo: headingNews.bottomAnchor),
-            newsImage.widthAnchor.constraint(equalToConstant: 200 as CGFloat),
+            newsImage.topAnchor.constraint(equalTo: headingNews.bottomAnchor,constant: -200 as CGFloat),
+            newsImage.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            newsImage.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             newsImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             newsImage.widthAnchor.constraint(equalToConstant: Constants.Image.imageWidth),
         ])
         
         newsImage.layer.cornerRadius = Constants.Image.cornerRadius //устанавливаем скругление картинки
         newsImage.layer.masksToBounds = true
-//
-//        let imageView = UIImageView()
-//        newsImage.contentMode = UIView.ContentMode.scaleAspectFit
-//                view.addSubview(newsImage)
-//
-                // Create URL
-                
+        
+        let imageUrlString = newsPicture3
+        guard let imageUrl:URL = URL(string: imageUrlString) else {
+            return
+        }
+        newsImage.loadImage(url: imageUrl)
+        
+ 
+//        self.view = view
         
     }
     

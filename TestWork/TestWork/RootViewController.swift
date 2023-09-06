@@ -7,7 +7,7 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     enum Constants{
         enum CollectionView {
             static let title = "Список новостоей"
-            static let backgroundColor = UIColor.green
+            static let backgroundColor = UIColor.white
             static let titleColor = UIColor.black
             static let centerYCollectionViewCenterScreen = -40 as CGFloat
             static let widthCollectionView = 200 as CGFloat

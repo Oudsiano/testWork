@@ -7,9 +7,9 @@ class CustomCollectionViewCell: UICollectionViewCell {//создаем ячей�
             enum Label {
                 static let newsTitle = "Список новостоей"
                 static let labelBackgroundColor = UIColor.white
-                static let textTitleColor = UIColor.red
+                static let textTitleColor = UIColor.black
                 static let heightLabel = 50 as CGFloat
-                static let cornerRadiusLabel = 20 as CGFloat
+                static let cornerRadiusLabel = 0 as CGFloat
                 static let labelBotOffsetCell = 50 as CGFloat
             }
             enum Image {
@@ -99,7 +99,7 @@ class CustomCollectionViewCell: UICollectionViewCell {//создаем ячей�
         addSubview(myImage)
         myLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            myLabel.topAnchor.constraint(equalTo: myImage.topAnchor),
+            myLabel.topAnchor.constraint(equalTo: myImage.topAnchor,constant: -150 as CGFloat),
             myLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             myLabel.rightAnchor.constraint(equalTo: myImage.leftAnchor),
             myLabel.bottomAnchor.constraint(equalTo: myImage.bottomAnchor)
