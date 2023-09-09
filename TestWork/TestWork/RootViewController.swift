@@ -4,7 +4,7 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     
     var newsArticles: [Article] = []
     
-    enum Constants{
+    enum Constants {
         enum CollectionView {
             static let title = "Список новостоей"
             static let backgroundColor = UIColor.white
@@ -20,6 +20,11 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
             static let hightCell = 200 as CGFloat
             static let cellCount = 20
         }
+        enum HeadingTop {
+            static let backgroundColor = UIColor.white
+            static let headingText = "More For You"
+            static let fontSize = 40
+        }
     }
     let sessionConfiguration = URLSessionConfiguration.default
     let session = URLSession.shared//подключение к сети
@@ -27,19 +32,41 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     //TODO: убрать форс анврапинг
     var collectionVIew: UICollectionView! //для создания коллекции сначала нужен ее экземпляр
     
+    private lazy var headingTop: UILabel = {
+        let view = UILabel()
+        view.backgroundColor = UIColor.white
+        view.text = Constants.HeadingTop.headingText
+        view.numberOfLines = 0
+        view.textAlignment = NSTextAlignment.left
+        view.font = UIFont.boldSystemFont(ofSize: CGFloat(Constants.HeadingTop.fontSize))
+        return view
+    }()
+    
     override func viewDidLoad() {
+        view.backgroundColor = UIColor.white
         obtainPosts()
         setupCollectionView()
+        setupHeading()
+    }
+    func setupHeading() {
+        view.addSubview(headingTop)
+        headingTop.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            headingTop.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            headingTop.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            headingTop.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        ])
     }
     
     func setupCollectionView() {
         let layout = UICollectionViewFlowLayout() //макет представления типа
         collectionVIew = UICollectionView(frame: .zero, collectionViewLayout: layout) //инициализируем представление коллекции с помощью рамки и макета представления коллекции
         view.addSubview(collectionVIew)
+        view.addSubview(headingTop)
         collectionVIew.translatesAutoresizingMaskIntoConstraints = false //снимаем заводские констрейнты
         collectionVIew.backgroundColor = Constants.CollectionView.backgroundColor
         //ставим кастомные
-        collectionVIew.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.CollectionView.topOffset).isActive = true
+        collectionVIew.topAnchor.constraint(equalTo: headingTop.bottomAnchor, constant: Constants.CollectionView.topOffset).isActive = true
         collectionVIew.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constants.CollectionView.leftOffset).isActive = true
         collectionVIew.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: Constants.CollectionView.rightOffset).isActive = true
         collectionVIew.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
@@ -63,7 +90,7 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
         //в withReuseIdentifier указываем путь
         return cell
     }
-    func collectionView(_ collectionView: UICollectionView,layout collectionViewLayout: UICollectionViewLayout,sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width - Constants.CollectionView.horizontalDistanceCell, height: Constants.CollectionView.hightCell)
     }//устанавливаем размер ячейки
     

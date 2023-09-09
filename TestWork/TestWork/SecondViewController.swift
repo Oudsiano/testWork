@@ -77,7 +77,7 @@ final class SecondViewController: RootViewController {
         return view
     }()
 
-    private lazy var labelForMenu: UILabel = {
+    private lazy var descriptionNews: UILabel = {
         let view = UILabel()
         view.backgroundColor = Constants.TextLabel.backgroundColor
         view.text = self.textForNews
@@ -123,30 +123,34 @@ final class SecondViewController: RootViewController {
     // MARK: - Private
     
     private func setupUI() {
-        setupLabel()
+        setupDescription()
         setupImageNews()
         setupHeading()
         setupDatePublication()
         setupLinkToSource()
     }
     
-    private func setupHeading() {
+    internal override func setupHeading() {
         view.addSubview(headingNews)
         
         headingNews.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            headingNews.topAnchor.constraint(equalTo: view.topAnchor, constant: Constants.Heading.offsetToTopSafeArea),
+            headingNews.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            headingNews.bottomAnchor.constraint(equalTo: view.topAnchor, constant: 400 as CGFloat),
             headingNews.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             headingNews.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,constant: Constants.Heading.leftOffsetHeading)
         ])
     }
     private func setupDatePublication() {
         view.addSubview(datePublication)
-        
+        view.addSubview(descriptionNews)
+        view.addSubview(linkToSource)
         datePublication.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            datePublication.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: Constants.DatePublication.offsetToBotSafeArea),
-            datePublication.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constants.DatePublication.offsetToLeftSafeArea)
+            datePublication.topAnchor.constraint(equalTo: descriptionNews.bottomAnchor),
+            datePublication.bottomAnchor.constraint(equalTo: linkToSource.topAnchor),
+            datePublication.leftAnchor.constraint(equalTo: view.leftAnchor),
+            datePublication.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
         datePublication.layer.cornerRadius = Constants.DatePublication.cornerRadius //устанавливаем скругление картинки
         datePublication.layer.masksToBounds = true
@@ -156,8 +160,9 @@ final class SecondViewController: RootViewController {
         view.addSubview(datePublication)
         linkToSource.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            linkToSource.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: Constants.DatePublication.offsetToBotSafeArea),
-            linkToSource.leftAnchor.constraint(equalTo: datePublication.rightAnchor, constant: Constants.DatePublication.offsetToLeftSafeArea)
+            linkToSource.leftAnchor.constraint(equalTo: view.leftAnchor),
+            linkToSource.rightAnchor.constraint(equalTo: view.rightAnchor),
+            linkToSource.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     private func setupImageNews() {
@@ -189,16 +194,14 @@ final class SecondViewController: RootViewController {
     
     
     
-    private func setupLabel() {
-        view.addSubview(labelForMenu)
+    private func setupDescription() {
+        view.addSubview(descriptionNews)
         view.addSubview(headingNews)
-        view.addSubview(datePublication)
-        labelForMenu.translatesAutoresizingMaskIntoConstraints = false
+        descriptionNews.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            labelForMenu.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constants.TextLabel.offsetToLeftSafeArea),
-            labelForMenu.rightAnchor.constraint(equalTo: view.rightAnchor, constant: Constants.TextLabel.offsetToRightSafeArea),
-            labelForMenu.topAnchor.constraint(equalTo: headingNews.bottomAnchor, constant: 200 as CGFloat),
-            labelForMenu.bottomAnchor.constraint(equalTo: datePublication.topAnchor)
+            descriptionNews.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constants.TextLabel.offsetToLeftSafeArea),
+            descriptionNews.rightAnchor.constraint(equalTo: view.rightAnchor, constant: Constants.TextLabel.offsetToRightSafeArea),
+            descriptionNews.topAnchor.constraint(equalTo: headingNews.bottomAnchor, constant: 200 as CGFloat)
         ])
     }
 }

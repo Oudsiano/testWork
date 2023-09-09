@@ -11,18 +11,19 @@ class CustomCollectionViewCell: UICollectionViewCell {//создаем ячей�
                 static let heightLabel = 50 as CGFloat
                 static let cornerRadiusLabel = 0 as CGFloat
                 static let labelBotOffsetCell = 50 as CGFloat
+                static let fontSize = 20 as CGFloat
             }
             enum Image {
                 static let cornerRadiusImage = 20 as CGFloat
             }
-            enum ViewsCount {
-                static let viewsCountText = "14"
-                static let viewsCountBackgroundColor = UIColor.blue
-                static let textViewsCountColor = UIColor.black
-                static let widthViewsCount = 35 as CGFloat
-                static let heightViewsCount = 50 as CGFloat
-                static let cornerRadiusViewsCount = 20 as CGFloat
-                static let rightOffset = 35 as CGFloat
+            enum DatePublication {
+                static let datePublicationText = "14"
+                static let datePublicationBackgroundColor = UIColor.white
+                static let textDatePublicationColor = UIColor.black
+                static let widthDatePublication = 35 as CGFloat
+                static let heightDatePublication = 50 as CGFloat
+                static let cornerRadiusDatePublication = 20 as CGFloat
+                static let rightOffsetDatePublication = 35 as CGFloat
             }
         }
     }
@@ -33,14 +34,16 @@ class CustomCollectionViewCell: UICollectionViewCell {//создаем ячей�
         label.textColor = Constants.Cell.Label.textTitleColor
         label.text = Constants.Cell.Label.newsTitle
         label.backgroundColor = Constants.Cell.Label.labelBackgroundColor
+        label.numberOfLines = 0
+        label.font = UIFont.boldSystemFont(ofSize: Constants.Cell.Label.fontSize)
         return label
     }()
-    private let viewsCount: UILabel = {
-        let viewsCount = UILabel()
-        viewsCount.text = Constants.Cell.ViewsCount.viewsCountText
-        viewsCount.backgroundColor = Constants.Cell.ViewsCount.viewsCountBackgroundColor
-        viewsCount.textColor = Constants.Cell.ViewsCount.textViewsCountColor
-        return viewsCount
+    private let datePublication: UILabel = {
+        let datePublicationNews = UILabel()
+        datePublicationNews.text = Constants.Cell.DatePublication.datePublicationText
+        datePublicationNews.backgroundColor = Constants.Cell.DatePublication.datePublicationBackgroundColor
+        datePublicationNews.textColor = Constants.Cell.DatePublication.textDatePublicationColor
+        return datePublicationNews
     }()
     
     private let myImage: UIImageView = {
@@ -62,7 +65,7 @@ class CustomCollectionViewCell: UICollectionViewCell {//создаем ячей�
     private func collectionViewSetup() {
         contentView.addSubview(myImage)
         contentView.addSubview(myLabel)
-        contentView.addSubview(viewsCount)
+        contentView.addSubview(datePublication)
         contentView.clipsToBounds = true
     }
     
@@ -72,6 +75,22 @@ class CustomCollectionViewCell: UICollectionViewCell {//создаем ячей�
     //TODO: по аналогии картинку и количество просмотров
     func configure(articleForCells: Article) {
         myLabel.text = articleForCells.title
+        guard var datePublished = articleForCells.publishedAt else {
+            return
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        guard let datePublishedDate = dateFormatter.date(from: datePublished) else { return }
+        let dateComponentsFormatter = DateComponentsFormatter()
+        let dateNow = Date()
+        dateComponentsFormatter.allowedUnits = [NSCalendar.Unit.year, .month, .day, .hour, .minute]
+        dateComponentsFormatter.maximumUnitCount = 1
+        dateComponentsFormatter.unitsStyle = DateComponentsFormatter.UnitsStyle.full
+        let timeDifference = dateComponentsFormatter.string(from: datePublishedDate, to: dateNow)
+
+        datePublication.text = articleForCells.publishedAt
+        
         var newsPicture3: String {
             articleForCells.urlToImage ?? " "
         }
@@ -87,7 +106,7 @@ class CustomCollectionViewCell: UICollectionViewCell {//создаем ячей�
         myImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             myImage.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            myImage.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            myImage.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor,constant: 20 as CGFloat),
             myImage.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             myImage.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
@@ -99,27 +118,30 @@ class CustomCollectionViewCell: UICollectionViewCell {//создаем ячей�
         addSubview(myImage)
         myLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            myLabel.topAnchor.constraint(equalTo: myImage.topAnchor,constant: -150 as CGFloat),
+            myLabel.topAnchor.constraint(equalTo: myImage.topAnchor),
             myLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            myLabel.rightAnchor.constraint(equalTo: myImage.leftAnchor),
+            myLabel.rightAnchor.constraint(equalTo: myImage.leftAnchor,constant: -5 as CGFloat),
             myLabel.bottomAnchor.constraint(equalTo: myImage.bottomAnchor)
         ])
         myLabel.layer.cornerRadius = Constants.Cell.Label.cornerRadiusLabel
         myLabel.layer.masksToBounds = true
         
     }
-    private func setupCellViewsCount() {
-//        viewsCount.frame = CGRect(x: contentView.frame.size.width - Constants.Cell.ViewsCount.rightOffset,
-//                                  y: 0,
-//                                  width: Constants.Cell.ViewsCount.widthViewsCount,
-//                                  height: Constants.Cell.ViewsCount.heightViewsCount)
-        viewsCount.layer.cornerRadius = Constants.Cell.ViewsCount.cornerRadiusViewsCount
-        viewsCount.layer.masksToBounds = true
+    private func setupdatePublication() {
+        addSubview(datePublication)
+        addSubview(myImage)
+        datePublication.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            datePublication.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor),
+            datePublication.rightAnchor.constraint(equalTo: myImage.leftAnchor),
+            datePublication.bottomAnchor.constraint(equalTo: myImage.bottomAnchor)
+            ])
+            datePublication.layer.masksToBounds = true
     }
     override func layoutSubviews() {
         super.layoutSubviews()
         setupCellLabel()
-        setupCellViewsCount()
+        setupdatePublication()
     }
 }
 extension  UIImageView {
