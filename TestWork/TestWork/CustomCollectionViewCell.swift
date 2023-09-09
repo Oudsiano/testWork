@@ -75,21 +75,14 @@ class CustomCollectionViewCell: UICollectionViewCell {//создаем ячей�
     //TODO: по аналогии картинку и количество просмотров
     func configure(articleForCells: Article) {
         myLabel.text = articleForCells.title
-        guard var datePublished = articleForCells.publishedAt else {
+        var publishDateString = articleForCells.publishedAt
+        let dateFormatter = DateFormatter()
+          dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+          dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        guard let publishDate = dateFormatter.date(from:publishDateString) else {
             return
         }
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        guard let datePublishedDate = dateFormatter.date(from: datePublished) else { return }
-        let dateComponentsFormatter = DateComponentsFormatter()
-        let dateNow = Date()
-        dateComponentsFormatter.allowedUnits = [NSCalendar.Unit.year, .month, .day, .hour, .minute]
-        dateComponentsFormatter.maximumUnitCount = 1
-        dateComponentsFormatter.unitsStyle = DateComponentsFormatter.UnitsStyle.full
-        let timeDifference = dateComponentsFormatter.string(from: datePublishedDate, to: dateNow)
-
-        datePublication.text = articleForCells.publishedAt
+        
         
         var newsPicture3: String {
             articleForCells.urlToImage ?? " "
