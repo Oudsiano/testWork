@@ -96,7 +96,7 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("news \(indexPath.row + 1) is tapped")
+//        print("news \(indexPath.row + 1) is tapped")
 //        indexNews = indexPath.row
         let articleToIndex = newsArticles[indexPath.row]
         tapCell(newsArticle: articleToIndex)
@@ -110,7 +110,7 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     }
     
     func obtainPosts() {
-        let urlString = "https://newsapi.org/v2/everything?q=apple&from=2023-08-26&to=2023-08-26&sortBy=popularity&apiKey=be4975f02b964a008b5186c21ec7ccab"
+        let urlString = "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=be4975f02b964a008b5186c21ec7ccab"
         
 
         guard let url = URL(string: urlString) else {

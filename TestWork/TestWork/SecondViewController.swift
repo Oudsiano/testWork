@@ -9,7 +9,7 @@ final class SecondViewController: RootViewController {
         articleNews.title ?? "net zagolovka"
     }
     var textForDate: String {
-        articleNews.publishedAt ?? "net dati"
+        articleNews.publishedAt 
     }
     var linkToSourceInput: String {
         articleNews.url ?? "net ssilki"
@@ -117,8 +117,8 @@ final class SecondViewController: RootViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupUI()
-        print(ffgr)
-        print(newsPicture3)
+//        print(ffgr)
+//        print(newsPicture3)
     }
     // MARK: - Private
     
