@@ -19,19 +19,15 @@ final class SecondViewController: RootViewController {
     }
 
     enum Constants {
-        enum TextLabel {
-            static let height = 50 as CGFloat
-            static let width = 150
+        enum TextDescription {
             static let backgroundColor = UIColor.white
             static let textColor = UIColor.black
-            static let offsetToLeftSafeArea = 0 as CGFloat
-            static let offsetToRightSafeArea = 0 as CGFloat
-            static let offsetToTopSafeArea = 0 as CGFloat
-            static let offsetTopBotSafeAre = 0 as CGFloat
+            static let descriptionOffsetHeading = 200 as CGFloat
         }
         enum Image {
             static let cornerRadius = 20 as CGFloat
             static let imageWidth = 100 as CGFloat
+            static let imageHight = 200 as CGFloat
         }
         enum Heading {
             static let text = "Heading"
@@ -55,13 +51,14 @@ final class SecondViewController: RootViewController {
         }
     }
     
-    // Properties
+    // UI
     private let newsImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
     }()
+    
     private lazy var datePublication: UILabel = {
         let view = UILabel()
         view.backgroundColor = Constants.DatePublication.backgroundColor
@@ -69,6 +66,7 @@ final class SecondViewController: RootViewController {
         view.numberOfLines = 0
         return view
     }()
+    
     private lazy var linkToSource: UILabel = {
         let view = UILabel()
         view.backgroundColor = Constants.DatePublication.backgroundColor
@@ -79,12 +77,13 @@ final class SecondViewController: RootViewController {
 
     private lazy var descriptionNews: UILabel = {
         let view = UILabel()
-        view.backgroundColor = Constants.TextLabel.backgroundColor
+        view.backgroundColor = Constants.TextDescription.backgroundColor
         view.text = self.textForNews
         view.numberOfLines = 0
         view.textAlignment = .left
         return view
     }()
+    
     private lazy var headingNews: UILabel = {
         let view = UILabel()
         view.backgroundColor = Constants.Heading.backgroundColor
@@ -95,11 +94,6 @@ final class SecondViewController: RootViewController {
         view.font = UIFont.boldSystemFont(ofSize: 40.0)
         return view
     }()
-    
-    
-    private lazy var ffgr: String = " "
-    
-    // MARK: - Lifecycle
     
     init(newsArticle: Article) {
         self.articleNews = newsArticle
@@ -113,12 +107,12 @@ final class SecondViewController: RootViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: LifeCycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupUI()
-//        print(ffgr)
-//        print(newsPicture3)
     }
     // MARK: - Private
     
@@ -152,7 +146,7 @@ final class SecondViewController: RootViewController {
             datePublication.leftAnchor.constraint(equalTo: view.leftAnchor),
             datePublication.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
-        datePublication.layer.cornerRadius = Constants.DatePublication.cornerRadius //устанавливаем скругление картинки
+        datePublication.layer.cornerRadius = Constants.DatePublication.cornerRadius
         datePublication.layer.masksToBounds = true
     }
     private func setupLinkToSource() {
@@ -175,10 +169,10 @@ final class SecondViewController: RootViewController {
             newsImage.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             newsImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             newsImage.widthAnchor.constraint(equalToConstant: Constants.Image.imageWidth),
-            newsImage.bottomAnchor.constraint(equalTo: headingNews.bottomAnchor, constant: 200 as CGFloat)
+            newsImage.bottomAnchor.constraint(equalTo: headingNews.bottomAnchor, constant: Constants.Image.imageHight)
         ])
         
-        newsImage.layer.cornerRadius = Constants.Image.cornerRadius //устанавливаем скругление картинки
+        newsImage.layer.cornerRadius = Constants.Image.cornerRadius
         newsImage.layer.masksToBounds = true
         
         let imageUrlString = newsPicture3
@@ -187,24 +181,21 @@ final class SecondViewController: RootViewController {
         }
         newsImage.loadImage(url: imageUrl)
         
- 
-//        self.view = view
-        
+        self.view = view
     }
-    
-    
     
     private func setupDescription() {
         view.addSubview(descriptionNews)
         view.addSubview(headingNews)
         descriptionNews.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            descriptionNews.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constants.TextLabel.offsetToLeftSafeArea),
-            descriptionNews.rightAnchor.constraint(equalTo: view.rightAnchor, constant: Constants.TextLabel.offsetToRightSafeArea),
-            descriptionNews.topAnchor.constraint(equalTo: headingNews.bottomAnchor, constant: 200 as CGFloat)
+            descriptionNews.leftAnchor.constraint(equalTo: view.leftAnchor),
+            descriptionNews.rightAnchor.constraint(equalTo: view.rightAnchor),
+            descriptionNews.topAnchor.constraint(equalTo: headingNews.bottomAnchor, constant: Constants.TextDescription.descriptionOffsetHeading)
         ])
     }
 }
+
 extension UIImageView {
     func loadImage(url: URL) {
         DispatchQueue.global().async {
@@ -219,4 +210,3 @@ extension UIImageView {
         }
     }
 }
-

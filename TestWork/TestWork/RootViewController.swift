@@ -6,16 +6,10 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     
     enum Constants {
         enum CollectionView {
-            static let title = "Список новостоей"
             static let backgroundColor = UIColor.white
-            static let titleColor = UIColor.black
-            static let centerYCollectionViewCenterScreen = -40 as CGFloat
-            static let widthCollectionView = 200 as CGFloat
-            static let heightCollectionView = 60 as CGFloat
             static let rightOffset = -10 as CGFloat
             static let leftOffset = 10 as CGFloat
             static let topOffset = 30 as CGFloat
-            static let bottomOffset = 30 as CGFloat
             static let horizontalDistanceCell = 30 as CGFloat
             static let hightCell = 200 as CGFloat
             static let cellCount = 20
@@ -27,10 +21,13 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
         }
     }
     let sessionConfiguration = URLSessionConfiguration.default
-    let session = URLSession.shared//подключение к сети
-    let decoder = JSONDecoder() //переводчик на swift с Json
-    //TODO: убрать форс анврапинг
-    var collectionVIew: UICollectionView! //для создания коллекции сначала нужен ее экземпляр
+    let session = URLSession.shared
+    let decoder = JSONDecoder()
+    
+    private lazy var collectionVIew: UICollectionView = {
+        let view = UICollectionView()
+        return view
+    }()
     
     private lazy var headingTop: UILabel = {
         let view = UILabel()
@@ -85,19 +82,15 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.identifier, for: indexPath) as! CustomCollectionViewCell
         let articleToIndex = newsArticles[indexPath.row]
         cell.configure(articleForCells: articleToIndex)
-        //создаем экземпляр ячейки с использованием многоразовой ячейки с идентификатором из списка представления коллекции
-        //используем в withReuseIdentifier зарегистрированный идентификатор
-        //в withReuseIdentifier указываем путь
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width - Constants.CollectionView.horizontalDistanceCell, height: Constants.CollectionView.hightCell)
-    }//устанавливаем размер ячейки
+    }
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        print("news \(indexPath.row + 1) is tapped")
-//        indexNews = indexPath.row
+
         let articleToIndex = newsArticles[indexPath.row]
         tapCell(newsArticle: articleToIndex)
         
