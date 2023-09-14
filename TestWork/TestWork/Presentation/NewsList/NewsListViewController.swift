@@ -1,6 +1,7 @@
 import UIKit
 
-class RootViewController: UIViewController, UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
+//TODO:
+final class NewsListViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     
     var newsArticles: [Article] = []
     
@@ -97,11 +98,10 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
     }
     private func tapCell(newsArticle: Article) {
         let VC = SecondViewController(newsArticle: newsArticle)
+        VC.modalPresentationStyle = .pageSheet
         navigationController?.pushViewController(VC, animated: true)
-        VC.modalPresentationStyle = .overFullScreen
-        VC.modalTransitionStyle = .coverVertical
     }
-    
+    //TODO: Вынести в presentor (Архитектура MVP)
     func obtainPosts() {
         let urlString = "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=be4975f02b964a008b5186c21ec7ccab"
         
@@ -131,4 +131,9 @@ class RootViewController: UIViewController, UICollectionViewDataSource,UICollect
         }
         dataTask.resume()
     }
+}
+//TODO: - Refactoring
+//MARK: - UICollectionViewDataSource
+extension NewsListViewController: UICollectionViewDataSource {
+    
 }
