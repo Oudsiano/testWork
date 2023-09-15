@@ -40,7 +40,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     private let myImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = (UIImage(systemName: "house")) //устанавливаем изображение
+        imageView.image = (UIImage(systemName: "house"))
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
@@ -55,6 +55,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     //MARK: Private
     
     private func setupUI() {

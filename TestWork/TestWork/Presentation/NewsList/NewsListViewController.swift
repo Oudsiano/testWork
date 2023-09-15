@@ -57,11 +57,11 @@ final class NewsListViewController: UIViewController, UICollectionViewDelegate,U
     }
     
     func setupCollectionView() {
-        let layout = UICollectionViewFlowLayout() //макет представления типа
-        collectionVIew = UICollectionView(frame: .zero, collectionViewLayout: layout) //инициализируем представление коллекции с помощью рамки и макета представления коллекции
+        let layout = UICollectionViewFlowLayout()
+        collectionVIew = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.addSubview(collectionVIew)
         view.addSubview(headingTop)
-        collectionVIew.translatesAutoresizingMaskIntoConstraints = false //снимаем заводские констрейнты
+        collectionVIew.translatesAutoresizingMaskIntoConstraints = false
         collectionVIew.backgroundColor = Constants.CollectionView.backgroundColor
         //ставим кастомные
         collectionVIew.topAnchor.constraint(equalTo: headingTop.bottomAnchor, constant: Constants.CollectionView.topOffset).isActive = true
@@ -72,10 +72,10 @@ final class NewsListViewController: UIViewController, UICollectionViewDelegate,U
         
         collectionVIew.dataSource = self
         collectionVIew.delegate = self
-        collectionVIew.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: CustomCollectionViewCell.identifier)//регистрируем ячейку
+        collectionVIew.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: CustomCollectionViewCell.identifier)
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) ->  Int { //Получаем точное количество элементов в разделе или сколько ячеек мы хотим отобразить в коллекции
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) ->  Int {
         return newsArticles.count
     }
     
@@ -101,7 +101,10 @@ final class NewsListViewController: UIViewController, UICollectionViewDelegate,U
         VC.modalPresentationStyle = .pageSheet
         navigationController?.pushViewController(VC, animated: true)
     }
+    
     //TODO: Вынести в presentor (Архитектура MVP)
+    //MARK: URL
+    
     func obtainPosts() {
         let urlString = "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=be4975f02b964a008b5186c21ec7ccab"
         

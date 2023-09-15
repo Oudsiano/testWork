@@ -36,19 +36,6 @@ final class SecondViewController: UIViewController {
             static let fontSize = 25
             static let leftOffsetHeading = 5 as CGFloat
         }
-//        enum DatePublication {
-//            static let text = "12.06.2023"
-//            static let backgroundColor = UIColor.white
-//            static let offsetToBotSafeArea = -50 as CGFloat
-//            static let offsetToLeftSafeArea = 50 as CGFloat
-//            static let cornerRadius = 5 as CGFloat
-//        }
-//        enum LinkToSourse {
-//            static let text = "https:"
-//            static let backgroundColor = UIColor.white
-//            static let leftOffsetToDatePublication = 50 as CGFloat
-//            static let cornerRadius = 5 as CGFloat
-//        }
     }
     
     // UI
@@ -58,22 +45,6 @@ final class SecondViewController: UIViewController {
         imageView.clipsToBounds = true
         return imageView
     }()
-    
-//    private lazy var datePublication: UILabel = {
-//        let view = UILabel()
-//        view.backgroundColor = Constants.DatePublication.backgroundColor
-//        view.text = self.textForDate
-//        view.numberOfLines = 0
-//        return view
-//    }()
-//
-//    private lazy var linkToSource: UILabel = {
-//        let view = UILabel()
-//        view.backgroundColor = Constants.DatePublication.backgroundColor
-//        view.text = self.linkToSourceInput
-//        view.numberOfLines = 0
-//        return view
-//    }()
 
     private lazy var descriptionNews: UILabel = {
         let view = UILabel()
@@ -100,7 +71,6 @@ final class SecondViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         setupImageNews()
         view.backgroundColor = UIColor.white
-//        setupLinkToSource()
     }
     
     required init?(coder: NSCoder) {
@@ -120,8 +90,6 @@ final class SecondViewController: UIViewController {
         setupDescription()
         setupImageNews()
         setupHeading()
-//        setupDatePublication()
-//        setupLinkToSource()
     }
     
     private func setupHeading() {
@@ -134,30 +102,7 @@ final class SecondViewController: UIViewController {
             headingNews.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,constant: Constants.Heading.leftOffsetHeading)
         ])
     }
-//    private func setupDatePublication() {
-//        view.addSubview(datePublication)
-//        view.addSubview(descriptionNews)
-//        view.addSubview(linkToSource)
-//        datePublication.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            datePublication.topAnchor.constraint(equalTo: descriptionNews.bottomAnchor),
-//            datePublication.bottomAnchor.constraint(equalTo: linkToSource.topAnchor),
-//            datePublication.leftAnchor.constraint(equalTo: view.leftAnchor),
-//            datePublication.rightAnchor.constraint(equalTo: view.rightAnchor)
-//        ])
-//        datePublication.layer.cornerRadius = Constants.DatePublication.cornerRadius
-//        datePublication.layer.masksToBounds = true
-//    }
-//    private func setupLinkToSource() {
-//        view.addSubview(linkToSource)
-//        view.addSubview(datePublication)
-//        linkToSource.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            linkToSource.leftAnchor.constraint(equalTo: view.leftAnchor),
-//            linkToSource.rightAnchor.constraint(equalTo: view.rightAnchor),
-//            linkToSource.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-//        ])
-//    }
+    
     private func setupImageNews() {
         view.addSubview(newsImage)
         view.addSubview(headingNews)
