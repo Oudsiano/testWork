@@ -109,6 +109,7 @@
 		BD68C6202A7AA3230063D193 /* TestWork */ = {
 			isa = PBXGroup;
 			children = (
+				BDE29F5F2AB3635100DBD88F /* View */,
 				BDE29F1D2AB0E67B00DBD88F /* Data */,
 				BDE29F1C2AB0E66500DBD88F /* Presentation */,
 				BDE29F182AB0E33D00DBD88F /* Extensions */,
@@ -172,6 +173,13 @@
 				BDAC07092A8A5FB900144C8D /* NewsFeed.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		BDE29F5F2AB3635100DBD88F /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -110,7 +110,6 @@ final class NewsListViewController: UIViewController, UICollectionViewDelegate,U
             return
         }
         let session = URLSession.shared
-        //TODO:
         let dataTask = session.dataTask(with: url) { [self] (data, response, error) in
             
             //check for error 
